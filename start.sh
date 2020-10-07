@@ -1,4 +1,5 @@
 #!/bin/sh
+# You need to install the tilix terminal for this script to function
 # Stores file location to restart script
 fileLoc=$(readlink -f "$0")
 
