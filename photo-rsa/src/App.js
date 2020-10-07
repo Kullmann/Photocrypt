@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import Test from "./screens/Test";
-import './App.css';
+import Main from "./screens/Main";
+import "./themes/default.css";
 
 export default class App extends Component{
 
   render() {
       return (
-      <div className="App">
-        <Test/>
-      </div>
+        <Main/>
     );
   }
 }

@@ -1,0 +1,133 @@
+/*
+    default theme
+    author: Hosung Lee
+    date: 2020-10-07
+*/
+.Container {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    background: #193764;
+
+    font-family: 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    color: #CED4E9;
+}
+
+.Header {
+    width: 100%;
+    height: 500px;
+    background: #315D90;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
+
+.Title { 
+    display:flex;
+    flex-direction: row;
+    align-items: top;
+}
+
+.TitleContent {
+    display: flex;
+    flex-direction: column;
+}
+.TitleText {
+    font-size: 48px;
+    margin: 0;
+    font-style: normal;
+    font-weight: normal;
+    color: #D3E1ED;
+}
+
+.SubtitleText {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    color: #D3E1ED;
+    margin: 15px;
+}
+
+.Description {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: normal;
+    color: #D3E1ED;
+    line-height: 10px;
+}
+
+.Content {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 350px
+}
+
+.UploadForm {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Message {
+    font-size:20px;
+}
+
+.UploadButton {
+    width: 200px;
+    height: 60px;
+    border-radius: 35px;
+    font-size: 20px;
+    color: #D3E1ED;
+    background: #315D90;
+    border: none;
+    margin-bottom: 20px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.Option a{
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.Footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.Footer p a {
+    text-decoration: none;
+    color: #CED4E9
+}
+
+.UploadButton {
+    position: relative;
+    overflow: hidden;
+    float: left;
+    clear: left;
+  }
+
+.UploadButton input[type="file"] {
+display: block;
+position: absolute;
+top: 0;
+right: 0;
+opacity: 0;
+font-size: 100px;
+filter: alpha(opacity=0);
+cursor: pointer;
+}
