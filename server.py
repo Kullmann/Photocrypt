@@ -1,26 +1,68 @@
+from http.server import BaseHTTPRequestHandler,HTTPServer, SimpleHTTPRequestHandler
+from encrypt import *
+from decrypt import *
+import ssl
+import logging
 import json
-from http.server import BaseHTTPRequestHandler, HTTPServer
+import base64
+import io
+#import matplotlib.pyplot as plt
+#import matplotlib.image as mpimg
 
+serv_name = "localhost"
+serv_port = 8080
 
-def make_handler(myvariable):
-
-    class GetHandler(BaseHTTPRequestHandler):
-        def _set_headers(self):
-            self.send_response(200)
-            self.send_header('Content-type', 'text/plain')
-            self.end_headers()
-
+class PhotoCryptoHandler(SimpleHTTPRequestHandler):
+        # post method
         def do_POST(self):
-            self._set_headers()
-            self.wfile.write(myvariable.encode('utf8'))
+
+            # header
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            
+            # get raw data
+            self.data_string = self.rfile.read(int(self.headers['Content-Length']))
+            
+            # convert raw data to base64 data
+            base64_encoded_data = self.data_string.decode("utf-8").split(',')[-1]
+
+            # convert base64 data to image data
+            imgdata = base64.b64decode(base64_encoded_data)
+
+            # show received image
+            # imgdata = io.BytesIO(imgdata)
+            # imgdata = mpimg.imread(imgdata, format='PNG')
+            # imgplot = plt.imshow(image)
+            # plt.show()
+
+            # result variable
+            result = None
+
+            # encrypt photo
+            if self.path == "/encrypt":
+                result = encrypt(imgdata)
+
+            # decrypt photo
+            elif self.path == "/decrypt":
+                result = decrypt(imgdata)
+
+            # if result is empty, send "no output" to client
+            if result == None:
+                self.wfile.write(b'no output')
+                return
+
+            # print(f"recieved {imgdata}")
+            self.wfile.write(bytes(result))
             return
 
-        def do_SEAN(self):
-            print("Hello World")
-            return
+# logging config
+logging.basicConfig(level=logging.DEBUG)
 
-    return GetHandler
+# init server
+httpd=HTTPServer((serv_name, serv_port), PhotoCryptoHandler)
+# print start message
+print(f"server started on {serv_name}:{serv_port}")
 
-server = HTTPServer(("localhost", 8080), make_handler('my_str'))
-print ('Starting server, use <Ctrl-C> to stop')
-server.serve_forever()
+# start server
+httpd.serve_forever()
