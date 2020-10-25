@@ -29,6 +29,8 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
 
             # convert base64 data to image data
             imgdata = base64.b64decode(base64_encoded_data)
+            #imgdata = (base64_encoded_data)
+
 
             # show received image
             # imgdata = io.BytesIO(imgdata)
@@ -42,6 +44,10 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
             # encrypt photo
             if self.path == "/encrypt":
                 result = encrypt(imgdata)
+                imgdata = base64.b64encode(result)
+                with open('logging.txt', 'wb') as f:
+                    f.write(imgdata)
+                return imgdata
 
             # decrypt photo
             elif self.path == "/decrypt":

@@ -4,7 +4,7 @@
 fileLoc=$(readlink -f "$0")
 
 echo "Starting Python and React Server"
-tilix --command ./startPython.sh --title Python_Server --minimize
+tilix --command ./startPython.sh --title Python_Server
 sleep 3
 
 # gets the PID of the python server
