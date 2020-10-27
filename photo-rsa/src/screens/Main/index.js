@@ -15,9 +15,6 @@ export default class Main extends Component{
     super();
     this.state = {loading:false, image:""}
     this.imageInputRef = React.createRef();
-
-    // Seans broken code
-    var image = new window.Image();
   }
 
   onChangeImage = (event) => {
@@ -43,24 +40,12 @@ export default class Main extends Component{
       console.log(res);
       this.setState({loading:false, image:""})
       this.state.document = true;
-
-      // Seans broken code
-      this.image = res
     } catch (err) {
       console.log(err);
     }
   }
 
   render() {
-      // Seans broken code
-      if (this.state.document) {
-        return (
-          <picture>
-            <img src={this.image} />
-          </picture>
-        )
-      }
-      
       return (
         <div className="Container">
           <div className="Header">
