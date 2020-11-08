@@ -39,7 +39,7 @@ export default class Main extends Component {
           </div>:<></>}
         </div>
         <div className="Content">
-          {!this.state.image ? <Upload setimg={this.setImage}/> : <Result image={this.state.image}/>}
+          {!this.state.image ? <Upload setimg={this.setImage}/> : <Result image={this.state.image} setimg={this.setImage}/>}
           <div className="Footer">
             <p>
               <a href="https://github.com/Kullmann/RSAPhotoCryptography">

@@ -22,6 +22,7 @@ export default class Result extends Component {
           </div>
           <div>
             <p>Do you like it? Share it with your friends!</p>
+            <button onClick={()=>this.props.setimg("")}>I want to encrypt more!</button>
           </div>
         </div>
     );
