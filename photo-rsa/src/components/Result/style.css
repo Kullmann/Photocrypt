@@ -1,0 +1,26 @@
+img {
+    width: 100%;
+    height: 100%;
+}
+.ResultContent {
+    width: 80%;
+    height: 486px;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.ResultText {
+    font-size: 28px;
+    margin: 0 0 20px 0;
+    font-style: normal;
+    font-weight: normal;
+    color: #D3E1ED;
+}
+
+.ImageFrame {
+    border: 10px solid #CED4E9;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
