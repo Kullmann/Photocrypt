@@ -20,7 +20,10 @@ export default class Result extends Component {
           <div className="ImageFrame">
           <img src={"data:image/bmp;base64," + this.props.image}></img>
           </div>
-      </div>
+          <div>
+            <p>Do you like it? Share it with your friends!</p>
+          </div>
+        </div>
     );
   }
 }

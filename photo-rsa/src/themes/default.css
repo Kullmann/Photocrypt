@@ -46,7 +46,7 @@
     justify-content: space-evenly;
     align-items: center;
     text-align: center;
-    margin-bottom: 120px;
+    margin-bottom: 20px;
     -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out;
     -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out;
     -o-transition:width 300ms ease-in-out, height 300ms ease-in-out;
@@ -92,7 +92,6 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 350px
 }
 
 .UploadForm {
