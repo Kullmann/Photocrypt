@@ -4,12 +4,22 @@
 # function, also need to generate entropy to randomly generate key
 
 import base64
+import io
+from PIL import Image
 from Cryptodome.Cipher import AES
 # had to encode with utf8, was getting a some weird cant convert to c code error
 key = "letsgetthisbread".encode("utf8")
 cipher_e = AES.new(key, AES.MODE_EAX)
 
 def encrypt(image):
+    im = Image.open(io.BytesIO(image))
+    with io.BytesIO() as barray:
+        im.save(barray, format="BMP")
+        barray = barray.getvalue()
+    #print(barray[0:64])
+    #print(image[0:64])
+    #print(image[-2:])
+    image = barray
     image_trimmed = image[64:-2]
     ciphertext = cipher_e.encrypt(image_trimmed)
     ciphertext = image[0:64] + ciphertext + image[-2:]

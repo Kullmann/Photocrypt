@@ -60,8 +60,8 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(b'no output')
                 return
             
-            print("result: ")
-            print(result)
+            #print("result: ")
+            #print(result)
 
             # print(f"recieved {imgdata}")
             self.wfile.write(bytes(result))
