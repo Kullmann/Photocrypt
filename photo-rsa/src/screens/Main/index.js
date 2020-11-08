@@ -37,11 +37,12 @@ export default class Main extends Component{
   makeServerRequest = async() => {
     try {
       const res = await axios.post("/encrypt", this.state.image);
-      console.log(res);
+      const str = Buffer.from(res.data, 'binary').toString('base64');
+      console.log(str);
       this.setState({loading:false, image:""})
       this.state.document = true;
     } catch (err) {
-      console.log(err);
+      console.log("error: " + err);
     }
   }
 

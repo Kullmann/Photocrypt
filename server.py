@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from http.server import BaseHTTPRequestHandler,HTTPServer, SimpleHTTPRequestHandler
 from encrypt import *
 from decrypt import *
@@ -47,7 +49,7 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
                 imgdata = base64.b64encode(result)
                 with open('logging.txt', 'wb') as f:
                     f.write(imgdata)
-                return imgdata
+                result = imgdata
 
             # decrypt photo
             elif self.path == "/decrypt":
@@ -57,6 +59,9 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
             if result == None:
                 self.wfile.write(b'no output')
                 return
+            
+            print("result: ")
+            print(result)
 
             # print(f"recieved {imgdata}")
             self.wfile.write(bytes(result))
