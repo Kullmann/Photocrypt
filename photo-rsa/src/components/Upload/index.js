@@ -10,7 +10,7 @@ import * as axios from "axios";
 export default class Upload extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: false, image: "" };
+    this.state = { loading: false, image: "", encrypt: true };
     this.imageInputRef = React.createRef();
   }
 
@@ -32,8 +32,9 @@ export default class Upload extends Component {
   };
 
   makeServerRequest = async () => {
+    const path = this.state.encrypt ? "/encrypt" : "/decrypt";
     try {
-      const res = await axios.post("/encrypt", this.state.image);
+      const res = await axios.post(path, this.state.image);
       const str = Buffer.from(res.data, "binary"); //.toString("base64");
       console.log(str);
       this.setState({ loading: false, image: ""});
@@ -43,6 +44,10 @@ export default class Upload extends Component {
       console.log("error: " + err);
     }
   };
+
+  toggleCipher = () => {
+    this.setState({encrypt:!this.state.encrypt});
+  }
 
   render() {
     return (
@@ -60,7 +65,7 @@ export default class Upload extends Component {
                 />
                 </label>
                 <div className="Option">
-                <input type="checkbox"></input>
+                <input type="checkbox" onChange={this.toggleCipher}></input>
                 <a>I want to decrypt my cypherphoto.</a>
                 </div>
             </form>

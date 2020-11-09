@@ -54,6 +54,8 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
             # decrypt photo
             elif self.path == "/decrypt":
                 result = decrypt(imgdata)
+                imgdata = base64.b64encode(result)
+                result = imgdata
 
             # if result is empty, send "no output" to client
             if result == None:
