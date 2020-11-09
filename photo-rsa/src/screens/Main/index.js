@@ -6,8 +6,8 @@
 import React, { Component } from "react";
 import GithubLogo from "../../components/GithubLogo";
 import Logo from "../../components/Logo";
-import Upload from "../../components/Upload"
-import Result from "../../components/Result"
+import Upload from "../../components/Upload";
+import Result from "../../components/Result";
 
 export default class Main extends Component {
   constructor() {
@@ -17,8 +17,8 @@ export default class Main extends Component {
   }
 
   setImage = (_image) => {
-    this.setState({image: _image});
-  }
+    this.setState({ image: _image });
+  };
 
   render() {
     return (
@@ -33,13 +33,23 @@ export default class Main extends Component {
               </p>
             </div>
           </div>
-          {!this.state.image?<div className="Description">
-            <p>This Web Based App encrypts your photo using RSA</p>
-            <p>and draws an image that represents your encrypted photo data.</p>
-          </div>:<></>}
+          {!this.state.image ? (
+            <div className="Description">
+              <p>This Web Based App encrypts your photo using RSA and AES</p>
+              <p>
+                and draws an image that represents your encrypted photo data.
+              </p>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="Content">
-          {!this.state.image ? <Upload setimg={this.setImage}/> : <Result image={this.state.image} setimg={this.setImage}/>}
+          {!this.state.image ? (
+            <Upload setimg={this.setImage} />
+          ) : (
+            <Result image={this.state.image} setimg={this.setImage} />
+          )}
           <div className="Footer">
             <p>
               <a href="https://github.com/Kullmann/RSAPhotoCryptography">
