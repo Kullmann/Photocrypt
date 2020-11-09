@@ -66,7 +66,7 @@ export default class Upload extends Component {
             </label>
             <div className="Option">
               <input type="checkbox" onChange={this.toggleCipher}></input>
-              <a>I want to decrypt my cypherphoto.</a>
+              <a href="/#">I want to decrypt my cypherphoto.</a>
             </div>
           </form>
         ) : (

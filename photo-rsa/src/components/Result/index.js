@@ -7,9 +7,9 @@ import React, { Component } from "react";
 import "./style.css";
 
 export default class Result extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (
@@ -18,7 +18,10 @@ export default class Result extends Component {
           <p className="ResultText">Result Cryptophoto</p>
         </div>
         <div className="ImageFrame">
-          <img src={"data:image/bmp;base64," + this.props.image}></img>
+          <img
+            src={"data:image/bmp;base64," + this.props.image}
+            alt="Encrypted Result"
+          ></img>
         </div>
         <div>
           <p>Share photo with your friends!</p>
