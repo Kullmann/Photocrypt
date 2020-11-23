@@ -8,6 +8,7 @@ import GithubLogo from "../../components/GithubLogo";
 import Logo from "../../components/Logo";
 import Upload from "../../components/Upload";
 import Result from "../../components/Result";
+import * as axios from "axios";
 
 export default class Main extends Component {
   constructor() {
@@ -18,6 +19,36 @@ export default class Main extends Component {
 
   setImage = (_image) => {
     this.setState({ image: _image });
+  };
+
+  makeServerRequest = async () => {
+    let path = "/generatePrivateKey";
+    try {
+      const res = await axios.post(path);
+      console.log(res.data);
+      const element = document.createElement("a");
+      const file = new Blob([res.data], { type: "text/plain" });
+      element.href = URL.createObjectURL(file);
+      element.download = "private_key.txt";
+      document.body.appendChild(element);
+      element.click();
+    } catch (err) {
+      console.log("error: " + err);
+    }
+
+    path = "/generatePublicKey";
+    try {
+      const res = await axios.post(path);
+      console.log(res.data);
+      const element = document.createElement("a");
+      const file = new Blob([res.data], { type: "text/plain" });
+      element.href = URL.createObjectURL(file);
+      element.download = "public_key.txt";
+      document.body.appendChild(element);
+      element.click();
+    } catch (err) {
+      console.log("error: " + err);
+    }
   };
 
   render() {
@@ -60,6 +91,9 @@ export default class Main extends Component {
               <GithubLogo style={{ marginLeft: 10 }} />
             </a>
           </div>
+          <button onClick={() => this.makeServerRequest()}>
+            Generate RSA public and private key
+          </button>
         </div>
       </div>
     );

@@ -3,6 +3,7 @@
 from http.server import BaseHTTPRequestHandler,HTTPServer, SimpleHTTPRequestHandler
 from encrypt import *
 from decrypt import *
+from generateKeys import *
 import ssl
 import logging
 import json
@@ -12,6 +13,7 @@ import io
 #import matplotlib.image as mpimg
 
 serv_name = "localhost"
+#serv_name = "192.168.1.19"
 serv_port = 8080
 
 class PhotoCryptoHandler(SimpleHTTPRequestHandler):
@@ -56,6 +58,14 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
                 result = decrypt(imgdata)
                 imgdata = base64.b64encode(result)
                 result = imgdata
+
+            elif self.path == "/generatePrivateKey":
+                private_key = generatePrivateKey()
+                result = private_key
+
+            elif self.path == "/generatePublicKey":
+                public_key = generatePublicKey()
+                result = public_key
 
             # if result is empty, send "no output" to client
             if result == None:
