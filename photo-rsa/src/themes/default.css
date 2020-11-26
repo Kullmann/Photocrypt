@@ -119,7 +119,13 @@
     padding-bottom: 10px;
 }
 
-.Option a{
+.Option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.Option p{
     margin-left: 10px;
     font-size: 14px;
 }
@@ -130,7 +136,13 @@
     align-items: center;
 }
 
-.Footer p a {
+.GithubLink {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.GithubLink p a {
     text-decoration: none;
     color: #CED4E9
 }
@@ -143,12 +155,24 @@
   }
 
 .UploadButton input[type="file"] {
-display: block;
-position: absolute;
-top: 0;
-right: 0;
-opacity: 0;
-font-size: 100px;
-filter: alpha(opacity=0);
-cursor: pointer;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    font-size: 100px;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+}
+
+.Button {
+    background-color: #315D90;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 10px;
+    color:white;
+}
+
+.RSAButton {
+    margin: 20px 0 15px 0
 }

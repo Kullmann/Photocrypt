@@ -25,8 +25,7 @@ export default class Result extends Component {
           ></img>
         </div>
         <div>
-          <p>Share photo with your friends!</p>
-          <button onClick={() => this.props.setimg("")}>
+          <button className="Button BackButton" onClick={() => this.props.setimg("")}>
             Encrypt another photo
           </button>
         </div>

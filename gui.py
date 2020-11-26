@@ -7,10 +7,10 @@ import sys
 
 class MainWindow(QMainWindow):
 
-    def __init__(self, *args, **kwargs):
-        super(MainWindow,self).__init__(*args, **kwargs)
+    def __init__(self):
+        super(MainWindow,self).__init__()
         self.setWindowTitle("Photo Crypto")
-        self.setGeometry(100, 100, 800, 600)
+        self.setGeometry(100, 100, 850, 600)
 
         self.browser = QWebEngineView(self)
         self.browser.setUrl(QUrl("http://localhost:8080/photo-rsa/build/"))
