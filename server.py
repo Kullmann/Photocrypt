@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from http.server import BaseHTTPRequestHandler,HTTPServer, SimpleHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler,HTTPServer, SimpleHTTPRequestHandler, HTTPStatus
 from encrypt import *
 from decrypt import *
 from generateKeys import *
@@ -9,6 +9,7 @@ import logging
 import json
 import base64
 import io
+import os
 #import matplotlib.pyplot as plt
 #import matplotlib.image as mpimg
 
@@ -17,6 +18,7 @@ serv_name = "localhost"
 serv_port = 8080
 
 class PhotoCryptoHandler(SimpleHTTPRequestHandler):
+
         # post method
         def do_POST(self):
 
@@ -79,13 +81,17 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
             self.wfile.write(bytes(result))
             return
 
-# logging config
-logging.basicConfig(level=logging.DEBUG)
+def start_server():
+    # logging config
+    logging.basicConfig(level=logging.DEBUG)
 
-# init server
-httpd=HTTPServer((serv_name, serv_port), PhotoCryptoHandler)
-# print start message
-print(f"server started on {serv_name}:{serv_port}")
+    # init server
+    httpd=HTTPServer((serv_name, serv_port), PhotoCryptoHandler)
+    # print start message
+    print(f"server started on {serv_name}:{serv_port}")
 
-# start server
-httpd.serve_forever()
+    # start server
+    httpd.serve_forever()
+
+if __name__ == '__main__':
+    start_server()

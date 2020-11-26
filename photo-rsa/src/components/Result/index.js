@@ -21,6 +21,7 @@ export default class Result extends Component {
           <img
             src={"data:image/bmp;base64," + this.props.image}
             alt="Encrypted Result"
+            download="encrypted_photo.png"
           ></img>
         </div>
         <div>

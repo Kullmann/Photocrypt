@@ -92,6 +92,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    background: #193764;
 }
 
 .UploadForm {
