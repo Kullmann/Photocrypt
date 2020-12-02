@@ -6,6 +6,7 @@
 import React, { Component } from "react";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import * as axios from "axios";
+import "bootstrap/dist/css/bootstrap.css";
 
 export default class Upload extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ export default class Upload extends Component {
   };
 
   makeServerRequest = async () => {
-    const path = this.state.encrypt ? "/encrypt" : "/decrypt";
+    const path = this.props.path; //this.state.encrypt ? "/encrypt" : "/decrypt";
     try {
       const res = await axios.post(path, this.state.image);
       const str = Buffer.from(res.data, "binary");
@@ -50,24 +51,17 @@ export default class Upload extends Component {
   render() {
     return (
       <div>
-        <p className="Message">
-          Give it a try! Press the button below to upload a photo.
-        </p>
         {!this.state.loading ? (
           <form className="UploadForm">
-            <label class="UploadButton">
-              <p>Upload</p>
+            <label class="btn btn-primary">
+              <p>{this.props.buttonName}</p>
               <input
-                id="imageInput"
+                id="file"
                 type="file"
                 onChange={this.onChangeImage.bind(this)}
                 ref={this.imageInputRef}
               />
             </label>
-            <div className="Option">
-              <input type="checkbox" onChange={this.toggleCipher}></input>
-              <p>I want to decrypt my cypherphoto.</p>
-            </div>
           </form>
         ) : (
           <div className="UploadForm">

@@ -7,10 +7,6 @@ import React, { Component } from "react";
 import "./style.css";
 
 export default class Result extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   render() {
     return (
       <div className="ResultContent">
@@ -23,11 +19,6 @@ export default class Result extends Component {
             alt="Encrypted Result"
             download="encrypted_photo.png"
           ></img>
-        </div>
-        <div>
-          <button className="Button BackButton" onClick={() => this.props.setimg("")}>
-            Encrypt another photo
-          </button>
         </div>
       </div>
     );
