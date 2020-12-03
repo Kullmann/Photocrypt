@@ -14,6 +14,7 @@ export default class Main extends Component {
   constructor() {
     super();
     this.state = { image: "" };
+    this.showAll = true;
   }
 
   setImage = (_image) => {
@@ -23,15 +24,32 @@ export default class Main extends Component {
   render() {
     return (
       <div className="Container">
-        <Header showall={!this.state.image}/>
-        <div className="Content">
+        <Header showall={!this.state.showAll} />
+        <div className="Body">
+          <RSAButton />
+          <div className="ProgramButtons">
+            <Upload
+              setimg={this.setImage}
+              buttonName="Encrypt"
+              path="/encrypt"
+            />
+            <Upload buttonName="Upload public key" path="/loadPublicKey" />
+
+            <Upload
+              setimg={this.setImage}
+              buttonName="Decrypt"
+              path="/decrypt"
+            />
+            <Upload buttonName="Upload private key" path="/loadPrivateKey" />
+          </div>
           {!this.state.image ? (
-            <Upload setimg={this.setImage} />
+            <p>Encrypt or Decrypt a photo to see result</p>
           ) : (
             <Result image={this.state.image} setimg={this.setImage} />
           )}
-          <RSAButton/>
-          {false ? <GithubLink/> : <></>}
+        </div>
+        <div className="Footer">
+          <GithubLink />
         </div>
       </div>
     );
