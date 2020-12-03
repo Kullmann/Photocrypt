@@ -1,6 +1,6 @@
 def loadPublicKey(imgdata):
     #imgdata = imgdata[:-1]
-    with open("keys/receiver.txt", "wb") as f:
+    with open("keys/receiver.pem", "wb") as f:
         f.write(imgdata)
 
 
