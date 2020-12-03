@@ -16,8 +16,8 @@ session_key = get_random_bytes(16)
 
 def encryptPhoto(image):
     #session_key = get_random_bytes(16)
-    file_out = open("data/encrypted_data.bin", "wb")
-    recipient_key = RSA.import_key(open("keys/receiver.pem").read())
+    file_out = open("../../data/encrypted_data.bin", "wb")
+    recipient_key = RSA.import_key(open("../../keys/receiver.pem").read())
 
     # Encrypt the session key with the public RSA key
     cipher_rsa = PKCS1_OAEP.new(recipient_key)
@@ -36,7 +36,7 @@ def encryptPhoto(image):
 def displayEncryption(image):
     session_key = get_random_bytes(16)
     #file_out = open("data/encrypted_data.bin", "wb")
-    recipient_key = RSA.import_key(open("keys/receiver.pem").read())
+    recipient_key = RSA.import_key(open("../../keys/receiver.pem").read())
 
     # Encrypt the session key with the public RSA key
     cipher_rsa = PKCS1_OAEP.new(recipient_key)
@@ -85,9 +85,9 @@ def encryptOld(image):
 
 
 def encrypt(image):
-    file_out = open("data/encrypted_data.bin", "wb")
+    file_out = open("../../data/encrypted_data.bin", "wb")
     #text = "Whats up".encode("utf-8")
-    recipient_key = RSA.import_key(open("keys/receiver.pem").read())
+    recipient_key = RSA.import_key(open("../../keys/receiver.pem").read())
     session_key = get_random_bytes(16)
 
     # Encrypt the session key with the public RSA key

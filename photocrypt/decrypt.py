@@ -11,12 +11,12 @@ from Cryptodome.Cipher import AES
 
 def decrypt(image):
 
-    with open("data/encrypted_data.bin", "wb") as f:
+    with open("../../data/encrypted_data.bin", "wb") as f:
         f.write(image)
 
-    file_in = open("data/encrypted_data.bin", "rb")
+    file_in = open("../../data/encrypted_data.bin", "rb")
 
-    private_key = RSA.import_key(open("keys/private.pem").read())
+    private_key = RSA.import_key(open("../../keys/private.pem").read())
 
     enc_session_key, nonce, tag, ciphertext = \
         [file_in.read(x) for x in (private_key.size_in_bytes(), 16, 16, -1)]
