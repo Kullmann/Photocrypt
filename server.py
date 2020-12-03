@@ -1,18 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from http.server import BaseHTTPRequestHandler, HTTPServer, SimpleHTTPRequestHandler, HTTPStatus
-from encrypt import *
-from decrypt import *
-from generateKeys import *
-from loadKeys import *
-import ssl
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+from photocrypt.encrypt import *
+from photocrypt.decrypt import *
+from photocrypt.generateKeys import *
+from photocrypt.loadKeys import *
 import logging
-import json
 import base64
-import io
-import os
+
 #import matplotlib.pyplot as plt
-#import matplotlib.image as mpimg
+#import matplotlib.imutil as mpimg
 
 serv_name = "localhost"
 #serv_name = "192.168.1.19"
@@ -35,13 +32,13 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
         # convert raw data to base64 data
         base64_encoded_data = self.data_string.decode("utf-8").split(',')[-1]
 
-        # convert base64 data to image data
+        # convert base64 data to imutil data
         imgdata = base64.b64decode(base64_encoded_data)
 
-        # show received image
+        # show received imutil
         # imgdata = io.BytesIO(imgdata)
         # imgdata = mpimg.imread(imgdata, format='PNG')
-        # imgplot = plt.imshow(image)
+        # imgplot = plt.imshow(imutil)
         # plt.show()
 
         # result variable
