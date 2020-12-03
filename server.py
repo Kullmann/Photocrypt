@@ -53,7 +53,7 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
             imgdata = base64.b64encode(result)
             result = imgdata
         elif self.path == "/encryptPhoto":
-            result = encryptPhoto(imgdata)
+            encryptPhoto(imgdata)
 
         # decrypt photo
         elif self.path == "/decrypt":

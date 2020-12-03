@@ -11,8 +11,8 @@ from Cryptodome.Cipher import AES
 
 def decrypt(image):
 
-    # with open("data/encrypted_data.bin", "wb") as f:
-    #     f.write(image)
+    with open("data/encrypted_data.bin", "wb") as f:
+        f.write(image)
 
     file_in = open("data/encrypted_data.bin", "rb")
 
