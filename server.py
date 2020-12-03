@@ -4,6 +4,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer, SimpleHTTPRequestHan
 from encrypt import *
 from decrypt import *
 from generateKeys import *
+from loadKeys import *
 import ssl
 import logging
 import json
@@ -36,7 +37,6 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
 
         # convert base64 data to image data
         imgdata = base64.b64decode(base64_encoded_data)
-        #imgdata = (base64_encoded_data)
 
         # show received image
         # imgdata = io.BytesIO(imgdata)
@@ -49,16 +49,17 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
 
         # encrypt photo
         if self.path == "/encrypt":
-            result = encrypt(imgdata)
+            result = displayEncryption(imgdata)
             imgdata = base64.b64encode(result)
-            # with open('logging.txt', 'wb') as f:
-            #     f.write(imgdata)
             result = imgdata
+        elif self.path == "/encryptPhoto":
+            result = encryptPhoto(imgdata)
 
         # decrypt photo
         elif self.path == "/decrypt":
             result = decrypt(imgdata)
             imgdata = base64.b64encode(result)
+            result = imgdata
 
         elif self.path == "/generatePrivateKey":
             private_key = generatePrivateKey()
@@ -68,15 +69,22 @@ class PhotoCryptoHandler(SimpleHTTPRequestHandler):
             public_key = generatePublicKey()
             result = public_key
 
+        # need to add checking if key is sucessfully loaded and is a good key
+        elif self.path == "/loadPublicKey":
+            loadPublicKey(imgdata)
+            self.wfile.write(b'Key loaded')
+            return
+
+        elif self.path == "/loadPrivateKey":
+            loadPrivateKey(imgdata)
+            self.wfile.write(b'Key loaded')
+            return
+
         # if result is empty, send "no output" to client
         if result == None:
             self.wfile.write(b'no output')
             return
 
-        #print("result: ")
-        # print(result)
-
-        # print(f"recieved {imgdata}")
         self.wfile.write(bytes(result))
         return
 

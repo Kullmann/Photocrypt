@@ -16,7 +16,7 @@ export default class RSAButton extends Component {
       const element = document.createElement("a");
       const file = new Blob([res.data], { type: "text/plain" });
       element.href = URL.createObjectURL(file);
-      element.download = "private_key.txt";
+      element.download = "private.pem";
       document.body.appendChild(element);
       element.click();
     } catch (err) {
@@ -30,7 +30,7 @@ export default class RSAButton extends Component {
       const element = document.createElement("a");
       const file = new Blob([res.data], { type: "text/plain" });
       element.href = URL.createObjectURL(file);
-      element.download = "public_key.txt";
+      element.download = "receiver.pem";
       document.body.appendChild(element);
       element.click();
     } catch (err) {
@@ -41,7 +41,7 @@ export default class RSAButton extends Component {
   render() {
     return (
       <button
-        class="RSAButton btn btn-success"
+        className="RSAButton btn btn-success"
         onClick={() => this.makeServerRequest()}
       >
         Generate RSA public and private key

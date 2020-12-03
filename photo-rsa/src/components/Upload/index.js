@@ -32,9 +32,19 @@ export default class Upload extends Component {
   };
 
   makeServerRequest = async () => {
-    const path = this.props.path; //this.state.encrypt ? "/encrypt" : "/decrypt";
+    const path = this.props.path;
     try {
       const res = await axios.post(path, this.state.image);
+      if (path === "/encrypt") {
+        await axios.post("/encryptPhoto", this.state.image);
+        console.log(res.data);
+        const element = document.createElement("a");
+        const file = new Blob([res.data], { type: "text/plain" });
+        element.href = URL.createObjectURL(file);
+        element.download = "encrypted_data.bin";
+        document.body.appendChild(element);
+        element.click();
+      }
       const str = Buffer.from(res.data, "binary");
       console.log(str);
       this.setState({ loading: false, image: "" });
@@ -53,7 +63,7 @@ export default class Upload extends Component {
       <div>
         {!this.state.loading ? (
           <form className="UploadForm">
-            <label class="btn btn-primary">
+            <label className="btn btn-primary">
               <p>{this.props.buttonName}</p>
               <input
                 id="file"

@@ -38,7 +38,7 @@ export default class Main extends Component {
             <Upload
               setimg={this.setImage}
               buttonName="Decrypt"
-              path="/encrypt"
+              path="/decrypt"
             />
             <Upload buttonName="Upload private key" path="/loadPrivateKey" />
           </div>
