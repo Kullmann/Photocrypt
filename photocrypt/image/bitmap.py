@@ -4,12 +4,12 @@
 
     Definition of Bitmap and Bitmap's header classes.
 """
-import io
-from struct import pack
-import PIL.Image
-from .imutil import ByteData, Image
-from photocrypt.byteutil import ByteStream
 
+from photocrypt.utils.bytes import ByteStream
+from photocrypt.image.base import Image, ImageHeader
+import PIL.Image
+
+# data compression method
 BI_RGB = 0
 BI_RLE8 = 1
 BI_RLE4 = 2
@@ -21,180 +21,113 @@ BI_CMYK = 11
 BI_CMYKRLE8 = 12
 BI_CMYKRLE4 = 13
 
-class BitmapFileHeader(ByteData):
+class BitmapFileHeader(ImageHeader):
     """
     class to represent bitmap file header.
+
+    i   name            type
+    =========================================
+    0   signature       2 byte string
+    1   file size       4 byte int
+    2   reversed 1      2 byte short (unused)
+    3   reversed 2      2 byte short (unused)
+    4   data offset     4 byte int
     """
-    def __init__(
-        self, signature: str,
-        file_size: int,
-        reversed_1: bytes,
-        reversed_2: bytes,
-        data_offset: int
-        ):
+    
+    protocol = [(str, [2]), int, 'short', 'short', int]
 
-        self.signature = signature
-        self.file_size = file_size
-        # unused
-        self.reversed_1 = reversed_1
-        # unused
-        self.reversed_2 = reversed_2
-        self.data_offset = data_offset
+# index of bitmap file header
+BF_SIGNATURE = 0
+BF_FILE_SIZE = 1
+BF_REVERSED_1 = 2
+BF_REVERSED_2 = 3
+BF_OFFSET = 4
 
-    @staticmethod
-    def from_bytes(data: bytes, offset: int = 0) -> 'BitmapFileHeader':
-        """
-        Load bitmap file header from bytes.
-        """
-        data_stream = ByteStream(data)
-        data_stream.seek(offset)
-
-        new_header = BitmapFileHeader(
-            data_stream.read(2).decode('ascii'),
-            int.from_bytes(data_stream.read(4), 'little'),
-            data_stream.read(2),
-            data_stream.read(2),
-            int.from_bytes(data_stream.read(4), 'little')
-        )
-
-        return new_header
-
-    def to_bytes(self) -> bytes:
-        """
-        Get bytes of bitmap file header
-        """
-        data_stream = ByteStream()
-        data_stream.write(self.signature.encode('ascii'))
-        data_stream.write(pack('<I', self.file_size))
-        data_stream.write(self.reversed_1)
-        data_stream.write(self.reversed_2)
-        data_stream.write(pack('<I', self.data_offset))
-
-        return data_stream.getvalue()
-
-
-class BitmapInfoHeader(ByteData):
+class BitmapInfoHeader(ImageHeader):
     """
     class to represent bitmap information header.
+
+    i   name            type
+    =========================================
+    0   size            4 byte int
+    1   width           4 byte int
+    2   height          4 byte int
+    3   n_color_planes  2 byte short
+    4   bpp             2 byte short
+    5   compression     4 byte int
+    6   image_size      4 byte int
+    7   h_res           4 byte int
+    8   v_res           4 byte int
+    9   n_colors        4 byte int
+    10  n_imp_colors    4 byte int
     """
-    def __init__(
-        self,
-        size: int,
-        width: int,
-        height: int,
-        n_color_planes: int,
-        bpp: int,
-        compression: int,
-        image_size: int,
-        h_res: int,
-        v_res: int,
-        n_colors: int,
-        n_imp_colors: int,
-        ):
 
-        self.size = size
-        self.width = width
-        self.height = height
-        self.n_color_planes = n_color_planes
-        self.bpp = bpp
-        self.compression = compression
-        self.image_size = image_size
-        self.h_res = h_res
-        self.v_res = v_res
-        self.n_colors = n_colors
-        self.n_imp_colors = n_imp_colors
+    protocol = [*[int]*3, *['short']*2, *[int]*6]
 
-    @staticmethod
-    def from_bytes(data: bytes, offset: int = 0) -> 'BitmapInfoHeader':
-        """
-        Load bitmap information header from bytes.
-        """
-        data_stream = ByteStream(data)
-        data_stream.seek(offset)
-
-        new_header = BitmapInfoHeader(
-            int.from_bytes(data_stream.read(4), 'little'),
-            int.from_bytes(data_stream.read(4), 'little'),
-            int.from_bytes(data_stream.read(4), 'little'),
-            int.from_bytes(data_stream.read(2), 'little'),
-            int.from_bytes(data_stream.read(2), 'little'),
-            int.from_bytes(data_stream.read(4), 'little'),
-            int.from_bytes(data_stream.read(4), 'little'),
-            int.from_bytes(data_stream.read(4), 'little'),
-            int.from_bytes(data_stream.read(4), 'little'),
-            int.from_bytes(data_stream.read(4), 'little'),
-            int.from_bytes(data_stream.read(4), 'little'),
-        )
-
-        return new_header
-
-    def to_bytes(self):
-        """
-        Get bytes of the bitmap information header.
-        """
-        data_stream = ByteStream()
-        data_stream.write(pack('<I', self.size))
-        data_stream.write(pack('<I', self.width))
-        data_stream.write(pack('<I', self.height))
-        data_stream.write(pack('<H', self.n_color_planes))
-        data_stream.write(pack('<H', self.bpp))
-        data_stream.write(pack('<I', self.compression))
-        data_stream.write(pack('<I', self.image_size))
-        data_stream.write(pack('<I', self.h_res))
-        data_stream.write(pack('<I', self.v_res))
-        data_stream.write(pack('<I', self.n_colors))
-        data_stream.write(pack('<I', self.n_imp_colors))
-        return data_stream.getvalue()
-
+# index of bitmap info header
+BI_SIZE = 0
+BI_WIDTH = 1
+BI_HEIGHT = 2
+BI_COLOR_PLANES = 3
+BI_BPP = 4
+BI_COMPRESSION = 5
+BI_IMAGE_SIZE = 6
+BI_HORIZ_RES = 7
+BI_VERTI_RES = 8
+BI_COLORS = 9
+BI_IMP_COLORS = 10
 
 class Bitmap(Image):
     """
-        Load bitmap information header from bytes.
-        """
-    def __init__(self, file_header: BitmapFileHeader, info_header: BitmapInfoHeader, data: bytes):
-        super().__init__(data)
-        self.file_header = file_header
-        self.info_header = info_header
+    Load bitmap information header from bytes.
+    """
+    image_format = "BMP"
 
-    @staticmethod
-    def from_bytes(data: bytes, offset: int = 0) -> 'Bitmap':
+    @classmethod
+    def test_format(cls, data: bytes):
+        """
+        returns name of format if format is valid, None otherwise.
+        """
+        if data.startswith(b'BM'):
+            return cls.image_format
+        return None
+
+    def __init__(self, headers, data):
+        super().__init__(headers, data)
+        (
+            self.file_header,
+            self.info_header
+        ) = headers[:2]
+
+    @classmethod
+    def read(cls, data_stream: ByteStream) -> 'Bitmap':
         """
         Load bitmap from bytes
         """
-        file_header = BitmapFileHeader.from_bytes(data)
-        info_header = BitmapInfoHeader.from_bytes(data, 14)
+        file_header, info_header = cls.read_bitmap_headers(data_stream)
 
-        data_stream = ByteStream(data)
-        data_stream.seek(file_header.data_offset)
-        data = data_stream.read(info_header.image_size)
+        data_stream.seek(file_header.get_value(BF_OFFSET))
+        data = data_stream.read(info_header.get_value(BI_IMAGE_SIZE))
 
-        new_bitmap = Bitmap(
-            file_header,
-            info_header,
+        new_bitmap = cls(
+            [file_header, info_header],
             data
         )
-        
+
         return new_bitmap
 
-    def to_bytes(self) -> bytes:
+    def write(self, data_stream: ByteStream) -> None:
         """
         Get bytes of the bitmap.
         """
-        return self.file_header.to_bytes() + self.info_header.to_bytes() + self._data
-    
-    @staticmethod
-    def open(file_path: str) -> 'Bitmap':
+
+        for header in self.headers:
+            header.write(data_stream)
+        data_stream.write(self.data)
+
+    @classmethod
+    def read_bitmap_headers(cls, data_stream: ByteStream) -> (BitmapFileHeader, BitmapInfoHeader):
         """
-        open an image and converts it to Bitmap.
+        Reads bitmap headers from bytestream.
         """
-        image = PIL.Image.open(file_path)
-        byte_arr = ByteStream()
-        image.save(byte_arr, format='BMP')
-        return Bitmap.from_bytes(byte_arr.getvalue())
-    
-    def save(self, file_path: str) -> None:
-        """
-        saves current image to file path.
-        """
-        image = PIL.Image.open(ByteStream(self.to_bytes()))
-        image.save(file_path)
+        return BitmapFileHeader.read(data_stream), BitmapInfoHeader.read(data_stream)

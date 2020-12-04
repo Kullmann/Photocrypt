@@ -1,5 +1,5 @@
 __pycache__/
-.idea/*
+.idea/
 *.pyc
 logging.txt
-venv/*
+venv/
