@@ -1,3 +1,10 @@
+"""
+    author: Hosung Lee
+    date: December 5 2020
+
+    abstract ByteData class that can be converted from/to bytes.
+"""
+
 from abc import ABC, abstractmethod
 from .ByteStream import ByteStream
 

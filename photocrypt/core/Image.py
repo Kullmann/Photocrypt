@@ -2,7 +2,7 @@
     author: Hosung Lee
     date: December 4 2020
 
-    base classes for iamge and image header
+    Abstract iamge and image header classes
 """
 
 from typing import Callable
@@ -13,7 +13,7 @@ from .ByteData import ByteData
 
 class ImageHeader(ByteData):
     """
-    abstract class to represent Image Header
+    base class to represent Image Header
     """
     protocol = []
     def __init__(self, header: list):
@@ -67,7 +67,7 @@ class ImageHeader(ByteData):
         ])
 
     def __repr__(self):
-        return f"{self.__class__.__name__} {' | '.join(map(str,self.header))}"
+        return f"<{self.__class__.__name__}>[{' | '.join(map(str,self.header))}]"
 
 
 class Image(ByteData):
@@ -107,17 +107,14 @@ class Image(ByteData):
         """
         setter method of data
         """
+        if len(data) < len(self._data):
+            raise ValueError(f"data is smaller than {len(self._data)}")
+
         if len(data) > len(self._data):
             self._data = data[:len(self._data)]
 
         else:
             self._data = data
-
-    def apply(self, func: Callable[[bytes], bytes]) -> None:
-        """
-        applies function to the data bytes of image.
-        """
-        self.data = func(self.data)
 
     @classmethod
     def open(cls, file_path: str) -> 'Image':
@@ -149,3 +146,24 @@ def open_image_as(file_path: str, as_format: Image) -> Image:
         PIL.Image.open(file_path).save(data_stream, format=as_format.image_format)
         data_stream.seek(0)
         return as_format.read(data_stream)
+
+def convert_image(src: Image, to_format: Image) -> Image:
+    """
+    Converts an image from one type to another.
+    """
+    return to_format.from_bytes(src.to_bytes())
+
+def _open_image(supported_formats: list, file_path: str) -> Image:
+    """
+    loads image from path to Image class.
+    """
+    if len(supported_formats) == 0:
+        raise Exception("operation not supported yet.")
+    _default_format = supported_formats[0]
+    with open(file_path, 'rb') as file:
+        head = file.read(32)
+        for _f in supported_formats:
+            if _f.test_format(head):
+                return _f.open(file_path)
+
+    return open_image_as(file_path, _default_format)
