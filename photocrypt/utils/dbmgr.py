@@ -1,0 +1,2 @@
+class DBManager:
+    pass

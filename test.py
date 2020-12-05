@@ -1,16 +1,13 @@
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad
-from Crypto.Random import get_random_bytes
+from photocrypt.image import open_image_as, CryptoBitmap
+# class AESCipher:
+#     def __init__(self, args*, ):
+#         pass
 
-class AESCipher:
-    def __init__(self, args*, ):
-        pass
-
-data = b"secret"
-key = get_random_bytes(16)
-cipher = AES.new(key, AES.MODE_CBC)
-ct_bytes = cipher.encrypt(pad(data, AES.block_size))
-print(cipher.iv, ct_bytes)
+# data = b"secret"
+# key = get_random_bytes(16)
+# cipher = AES.new(key, AES.MODE_CBC)
+# ct_bytes = cipher.encrypt(pad(data, AES.block_size))
+# print(cipher.iv, ct_bytes)
 
 
 # from photocrypt.image.bitmap import Bitmap
@@ -24,7 +21,7 @@ print(cipher.iv, ct_bytes)
 #     return bytes(nd)
 
 
-# bitmap = Bitmap.open("samples/tuatara.jpg")
+bitmap = open_image_as("hell.png", CryptoBitmap)
 # bitmap.apply(encrypt)
-# bitmap.save("hell.png")
-
+#bitmap.save("hell.png")
+print(bitmap.headers)

@@ -5,9 +5,8 @@
     Definition of Bitmap and Bitmap's header classes.
 """
 
-from photocrypt.utils.bytes import ByteStream
-from photocrypt.image.base import Image, ImageHeader
-import PIL.Image
+from photocrypt.core import ByteStream
+from photocrypt.core import Image, ImageHeader
 
 # data compression method
 BI_RGB = 0
@@ -33,7 +32,7 @@ class BitmapFileHeader(ImageHeader):
     3   reversed 2      2 byte short (unused)
     4   data offset     4 byte int
     """
-    
+
     protocol = [(str, [2]), int, 'short', 'short', int]
 
 # index of bitmap file header
@@ -79,9 +78,16 @@ BI_IMP_COLORS = 10
 
 class Bitmap(Image):
     """
-    Load bitmap information header from bytes.
+    Image class to represent Bitmap
     """
     image_format = "BMP"
+
+    def __init__(self, headers, data):
+        super().__init__(headers, data)
+        (
+            self.file_header,
+            self.info_header
+        ) = headers[:2]
 
     @classmethod
     def test_format(cls, data: bytes):
@@ -91,13 +97,6 @@ class Bitmap(Image):
         if data.startswith(b'BM'):
             return cls.image_format
         return None
-
-    def __init__(self, headers, data):
-        super().__init__(headers, data)
-        (
-            self.file_header,
-            self.info_header
-        ) = headers[:2]
 
     @classmethod
     def read(cls, data_stream: ByteStream) -> 'Bitmap':

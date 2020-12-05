@@ -1,2 +1,0 @@
-class PhotoCryptCore:
-    pass
