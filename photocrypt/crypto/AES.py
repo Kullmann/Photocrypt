@@ -1,14 +1,16 @@
 """
-    author: Sean Kullman
-    date: December 7 2020
+    author: Sean Kullman, Hosung Lee
+    date: December 4 2020
 
-    provides AES cipher
+    AES class
 """
 from abc import abstractmethod
 from typing import Optional, List
 from Cryptodome.Cipher import AES
 from Cryptodome.Cipher.AES import MODE_CCM, MODE_EAX, MODE_GCM, MODE_SIV, MODE_OCB
-from photocrypt.core import Cipher, packer
+from photocrypt.core import Cipher
+from photocrypt.utils import packer
+import .
 
 class AESCipher(Cipher):
     """
@@ -56,12 +58,12 @@ class AESCipher(Cipher):
             Parameters:
                 data (bytes): data to decrypt using AES
                 extra (Optional[bytes]): packed bytes for extra
-                            (packed using photocrypt.pack).
+                                            (packed using photocrypt.util.packer).
 
             Return:
                 decrypted (bytes): encrypted data
                 extra (Optional[bytes]): packed bytes for extra
-                            (packed using photocrypt.pack).
+                                            (packed using photocrypt.util.packer).
         """
         ...
 
@@ -85,12 +87,12 @@ class AESCipherModern(AESCipher):
             Parameters:
                 data (bytes): data to encrypt using AES
                 extra (Optional[bytes]): packed bytes for extra
-                            (packed using photocrypt.pack).
+                                            (packed using photocrypt.util.packer).
 
             Return:
                 encrypted (bytes): encrypted data
                 extra (bytes): packed bytes of nonce and tag
-                            (packed using photocrypt.pack).
+                                            (packed using photocrypt.util.packer).
         """
 
         nonce = self._nonce if self.mode == MODE_SIV else self.aes.nonce
@@ -104,15 +106,15 @@ class AESCipherModern(AESCipher):
             Parameters:
                 data (bytes): data to decrypt using AES
                 extra (Optional[bytes]): packed bytes for extra
-                            (packed using photocrypt.pack).
+                                            (packed using photocrypt.util.packer).
 
             Return:
                 decrypted (bytes): encrypted data
                 extra: packed bytes for extra
-                            (packed using photocrypt.pack).
+                                            (packed using photocrypt.util.packer).
         """
         tag = packer.unpack(extra)[0]
-        return self.aes.decrypt_and_verify(data, tag), packer.pack(b'')
+        return self.aes.decrypt_and_verify(data, tag)
 
 # supported modes
 _supported_modes = {
@@ -139,6 +141,19 @@ def create(mode, key, extra: Optional[bytes] = None):
         Parameters:
             mode (constant): mode of AES
             key (bytes): key for cipher
-            extra (bytes): packed bytes for extra (packed using photocrypt.pack).
+            extra (bytes): packed bytes for extra (packed using photocrypt.util.packer).
     """
     return _get_aes(mode, key, extra)
+
+if __name__ == '__main__':
+    from Cryptodome.Random import get_random_bytes
+    key = get_random_bytes(32)
+    aes = create(MODE_EAX, key)
+    ctext, extra = aes.encrypt(b"hello world!")
+
+    ekey = RSA.create(RSA.generate_key()[1])
+    nonce, tag = packer.unpack(extra)
+    aes = create(MODE_EAX, key, packer.pack(nonce))
+    print(aes.decrypt(ctext, packer.pack(tag)))
+    #aes = create(MODE_EAX, key, [aes.aes.nonce])
+    #print(aes.decrypt(*ctext))
