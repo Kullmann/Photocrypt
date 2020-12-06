@@ -3,8 +3,8 @@ Driver of the photocrypt package
 """
 
 from photocrypt.image import open_image, Image
-from photocrypt.imcrypto import encrypt_image, decrypt_image
 from photocrypt.crypto.RSA import generate_key
+from .imcrypto import encrypt_image, decrypt_image
 class Photocrypt:
     """
     provides image crypto feature

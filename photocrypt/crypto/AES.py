@@ -112,7 +112,7 @@ class AESCipherModern(AESCipher):
                                             (packed using photocrypt.packer).
         """
         tag = packer.unpack(extra)[0]
-        return self.aes.decrypt_and_verify(data, tag)
+        return self.aes.decrypt_and_verify(data, tag), packer.pack(b'')
 
 # supported modes
 _supported_modes = {

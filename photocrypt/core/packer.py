@@ -8,7 +8,7 @@
 """
 
 from typing import List
-from .ByteStream import ByteStream
+from .bstream import ByteStream
 
 def pack(*args: bytes) -> bytes:
     """

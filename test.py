@@ -11,6 +11,9 @@
 # pim = imcrypto.decrypt_image(cim, pri)
 # pim.save("dec.png")
 
-from photocrypt import encrypt_image, open_image
+from photocrypt import encrypt_image, open_image, decrypt_image
+from photocrypt.crypto.RSA import generate_key, load_key, load_keypair, save_key, save_keypair
 
-encrypt_image(open_image("samples/tuatara.jpg"))
+private, public = load_keypair(("private.pem", "public.pem"))
+eimg = decrypt_image(encrypt_image(open_image("samples/tuatara.jpg"), public), private)
+eimg.save("test_samples/test.png")

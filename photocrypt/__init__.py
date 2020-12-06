@@ -2,16 +2,14 @@
 PhotoCrypt Package
 """
 
-# basic image operations
+# image operations
 from .image import open_image
 from .image import open_image_as
-from .image import convert_image
 
-# basic byte operations
-from .core.ByteData import ByteData
-from .core.ByteStream import ByteStream
-from .core.packer import pack
-from .core.packer import unpack
+# byte operations
+from .core import ByteData
+from .core import ByteStream
+from .core import packer
 
 # PhotoCrypt class
 from .driver import Photocrypt

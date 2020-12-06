@@ -5,8 +5,7 @@
     Definition of Bitmap and Bitmap's header classes.
 """
 
-from photocrypt.core import ByteStream
-from photocrypt.core import Image, ImageHeader
+from photocrypt.core import Image, ImageHeader, ByteStream
 
 # data compression method
 BI_RGB = 0

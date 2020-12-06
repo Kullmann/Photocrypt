@@ -6,7 +6,7 @@ from Cryptodome.Random import get_random_bytes
 from photocrypt.crypto import AES
 from photocrypt.crypto import RSA
 from photocrypt.image import CryptoBitmap, Image, convert_image
-from photocrypt.utils import packer
+from photocrypt import packer
 
 def encrypt_image(image: Image, public_key: bytes, *, aes_mode=AES.MODE_EAX) -> Image:
     """
