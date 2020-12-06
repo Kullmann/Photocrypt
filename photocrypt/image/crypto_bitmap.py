@@ -1,6 +1,6 @@
 """
     author: Hosung Lee
-    date: December 5 2020
+    date: December 7 2020
 
     crypto bitmap class
 """

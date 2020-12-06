@@ -1,6 +1,6 @@
 """
     author: Sean Kullman, Hosung Lee
-    date: December 4 2020
+    date: December 7 2020
 
     AES class
 """

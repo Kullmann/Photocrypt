@@ -1,5 +1,8 @@
 """
-Photocrypt module to encrypt/decrypt images
+    author: Sean Kullman, Hosung Lee
+    date: December 7 2020
+
+    Photocrypt module to encrypt/decrypt images
 """
 
 from Cryptodome.Random import get_random_bytes

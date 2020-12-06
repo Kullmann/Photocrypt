@@ -1,6 +1,6 @@
 """
     author: Hosung Lee
-    date: December 4 2020
+    date: December 7 2020
 
     Definition of Bitmap and Bitmap's header classes.
 """

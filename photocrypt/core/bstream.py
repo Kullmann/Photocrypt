@@ -1,6 +1,6 @@
 """
     author: Hosung Lee
-    date: December 4 2020
+    date: December 7 2020
 
     ByteStream class is used for processing bytes data as a stream.
 """

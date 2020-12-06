@@ -1,6 +1,6 @@
 """
     author: Hosung Lee
-    date: December 4 2020
+    date: December 7 2020
 
     Abstract Cipher class is a base class of all ciphers used within photocrypt package.
 """

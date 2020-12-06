@@ -1,6 +1,6 @@
 """
     author: Hosung Lee
-    date: December 6 2020
+    date: December 7 2020
 
     packer combines/extracts multiple meaningful data into/from one.
     When packer packs, it prepends size of each data (4 byte integer) to separate the data.

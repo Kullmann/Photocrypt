@@ -1,6 +1,6 @@
 """
     author: Hosung Lee
-    date: December 4 2020
+    date: December 7 2020
 
     Abstract iamge and image header classes that are base classes of
     all Images and their headers within photocrypt package.
