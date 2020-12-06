@@ -1,14 +1,13 @@
 """
-    author: Sean Kullman, Hosung Lee
-    date: December 4 2020
+    author: Sean Kullman
+    date: December 7 2020
 
-    rsa class
+    provides RSA cipher and generate key feature
 """
 from typing import Optional, List
 from Cryptodome.PublicKey import RSA
 from Cryptodome.Cipher import PKCS1_OAEP
-from photocrypt.utils import packer
-from photocrypt.core import Cipher
+from photocrypt.core import Cipher, packer
 
 class RSACipher(Cipher):
     """
@@ -32,12 +31,12 @@ class RSACipher(Cipher):
             Parameters:
                 data (bytes): data to encrypt using AES
                 extra (Optional[bytes]): packed bytes for extra
-                                            (packed using photocrypt.util.packer).
+                                            (packed using photocrypt.pack).
 
             Return:
                 encrypted (bytes): encrypted data
                 extra (Optional[bytes]): packed bytes for extra
-                                            (packed using photocrypt.util.packer).
+                                            (packed using photocrypt.pack).
         """
         return self._rsa.encrypt(data), packer.pack(b'')
 
@@ -48,12 +47,12 @@ class RSACipher(Cipher):
             Parameters:
                 data (bytes): data to decrypt using AES
                 extra (Optional[bytes]): packed bytes for extra
-                                            (packed using photocrypt.util.packer).
+                                            (packed using photocrypt.pack).
 
             Return:
                 decrypted (bytes): encrypted data
                 extra (Optional[bytes]): packed bytes for extra
-                                            (packed using photocrypt.util.packer).
+                                            (packed using photocrypt.pack).
         """
         return self._rsa.decrypt(data), packer.pack(b'')
 
@@ -78,6 +77,6 @@ def create(key: bytes):
         Parameters:
             mode (constant): mode of AES
             key (bytes): key for cipher
-            extra (bytes): packed bytes for extra (packed using photocrypt.util.packer).
+            extra (bytes): packed bytes for extra (packed using photocrypt.pack).
     """
     return RSACipher(key)

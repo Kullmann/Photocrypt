@@ -2,10 +2,10 @@
     author: Hosung Lee
     date: December 4 2020
 
-    Abstract iamge and image header classes
+    Abstract iamge and image header classes that are base classes of
+    all Images and their headers within photocrypt package.
 """
 
-from typing import Callable
 from abc import abstractmethod
 import PIL.Image
 from .ByteStream import ByteStream

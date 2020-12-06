@@ -1,15 +1,14 @@
 """
-    author: Sean Kullman, Hosung Lee
-    date: December 4 2020
+    author: Sean Kullman
+    date: December 7 2020
 
-    AES class
+    provides AES cipher
 """
 from abc import abstractmethod
 from typing import Optional, List
 from Cryptodome.Cipher import AES
 from Cryptodome.Cipher.AES import MODE_CCM, MODE_EAX, MODE_GCM, MODE_SIV, MODE_OCB
-from photocrypt.core import Cipher
-from photocrypt.utils import packer
+from photocrypt.core import Cipher, packer
 
 class AESCipher(Cipher):
     """
@@ -57,12 +56,12 @@ class AESCipher(Cipher):
             Parameters:
                 data (bytes): data to decrypt using AES
                 extra (Optional[bytes]): packed bytes for extra
-                            (packed using photocrypt.util.packer).
+                            (packed using photocrypt.pack).
 
             Return:
                 decrypted (bytes): encrypted data
                 extra (Optional[bytes]): packed bytes for extra
-                            (packed using photocrypt.util.packer).
+                            (packed using photocrypt.pack).
         """
         ...
 
@@ -86,12 +85,12 @@ class AESCipherModern(AESCipher):
             Parameters:
                 data (bytes): data to encrypt using AES
                 extra (Optional[bytes]): packed bytes for extra
-                            (packed using photocrypt.util.packer).
+                            (packed using photocrypt.pack).
 
             Return:
                 encrypted (bytes): encrypted data
                 extra (bytes): packed bytes of nonce and tag
-                            (packed using photocrypt.util.packer).
+                            (packed using photocrypt.pack).
         """
 
         nonce = self._nonce if self.mode == MODE_SIV else self.aes.nonce
@@ -105,12 +104,12 @@ class AESCipherModern(AESCipher):
             Parameters:
                 data (bytes): data to decrypt using AES
                 extra (Optional[bytes]): packed bytes for extra
-                            (packed using photocrypt.util.packer).
+                            (packed using photocrypt.pack).
 
             Return:
                 decrypted (bytes): encrypted data
                 extra: packed bytes for extra
-                            (packed using photocrypt.util.packer).
+                            (packed using photocrypt.pack).
         """
         tag = packer.unpack(extra)[0]
         return self.aes.decrypt_and_verify(data, tag), packer.pack(b'')
@@ -140,6 +139,6 @@ def create(mode, key, extra: Optional[bytes] = None):
         Parameters:
             mode (constant): mode of AES
             key (bytes): key for cipher
-            extra (bytes): packed bytes for extra (packed using photocrypt.util.packer).
+            extra (bytes): packed bytes for extra (packed using photocrypt.pack).
     """
     return _get_aes(mode, key, extra)

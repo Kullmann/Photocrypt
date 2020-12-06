@@ -11,6 +11,7 @@ from .CryptoBitmap import CryptoBitmap
 
 # supported formats
 supported_formats = [
+    CryptoBitmap,
     Bitmap
 ]
 

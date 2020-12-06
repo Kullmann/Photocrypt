@@ -2,18 +2,18 @@
     author: Hosung Lee
     date: December 4 2020
 
-    Abstract Cipher class
+    Abstract Cipher class is a base class of all ciphers used within photocrypt package.
 """
 from abc import ABC, abstractmethod
 from typing import Optional, List
 
 class Cipher(ABC):
     """
-    Cipher class
+    Abstract cipher class
     """
 
     @abstractmethod
-    def encrypt(self, data: bytes, extra: Optional[List[bytes]] = None) -> bytes:
+    def encrypt(self, data: bytes, extra: Optional[List[bytes]] = None) -> (bytes, bytes):
         """
         encrypts bytes
 
@@ -24,12 +24,12 @@ class Cipher(ABC):
             Return:
                 encrypted (bytes): encrypted data
                 extra (Optional[bytes]): packed bytes for extra
-                                            (packed using photocrypt.util.packer).
+                                            (packed using photocrypt.pack).
         """
         ...
 
     @abstractmethod
-    def decrypt(self, data: bytes, extra: Optional[List[bytes]] = None) -> bytes:
+    def decrypt(self, data: bytes, extra: Optional[List[bytes]] = None) -> (bytes, bytes):
         """
         decrypts bytes
 
@@ -40,6 +40,6 @@ class Cipher(ABC):
             Return:
                 decrypted (bytes): encrypted data
                 extra (Optional[bytes]): packed bytes for extra
-                                            (packed using photocrypt.util.packer).
+                                            (packed using photocrypt.pack).
         """
         ...

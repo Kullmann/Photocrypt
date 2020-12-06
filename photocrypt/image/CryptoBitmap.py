@@ -5,9 +5,8 @@
     crypto bitmap class
 """
 
-from photocrypt.core import ImageHeader, ByteStream
-from .Bitmap import *
-from photocrypt.utils import packer
+from photocrypt.core import ImageHeader, ByteStream, packer
+from .Bitmap import Bitmap, BitmapFileHeader, BF_FILE_SIZE, BF_OFFSET, BF_REVERSED_1, BI_IMAGE_SIZE
 
 class CryptoHeader(ImageHeader):
     """
@@ -49,6 +48,15 @@ class CryptoBitmap(Bitmap):
         (
             self.crypto_header
         ) = headers[2]
+    
+    @classmethod
+    def test_format(cls, data: bytes):
+        """
+        returns name of format if format is valid, None otherwise.
+        """
+        if data.startswith(b'BM') and data[6:8] == b'\n\x11':
+            return cls.image_format
+        return None
 
     def store_crypto_information(self, *data: bytes):
         """
