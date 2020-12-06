@@ -6,7 +6,7 @@
 """
 
 from abc import ABC, abstractmethod
-from .ByteStream import ByteStream
+from .bstream import ByteStream
 
 class ByteData(ABC):
     """

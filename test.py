@@ -11,5 +11,6 @@
 # pim = imcrypto.decrypt_image(cim, pri)
 # pim.save("dec.png")
 
-import webbrowser
-webbrowser.open('mailto:?to=runway3237@gmail.com&subject=mysubject&body=', new=1)
+from photocrypt import encrypt_image, open_image
+
+encrypt_image(open_image("samples/tuatara.jpg"))

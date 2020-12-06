@@ -8,8 +8,8 @@
 
 from abc import abstractmethod
 import PIL.Image
-from .ByteStream import ByteStream
-from .ByteData import ByteData
+from .bstream import ByteStream
+from .bdata import ByteData
 
 class ImageHeader(ByteData):
     """
@@ -115,6 +115,21 @@ class Image(ByteData):
 
         else:
             self._data = data
+
+    @classmethod
+    @abstractmethod
+    def read(cls, data_stream: ByteStream):
+        """
+        Read bytes from byte stream to construct the class.
+        """
+        ...
+
+    @abstractmethod
+    def write(self, data_stream: ByteStream) -> None:
+        """
+        write bytes to byte stream.
+        """
+        ...
 
     @classmethod
     def open(cls, file_path: str) -> 'Image':
