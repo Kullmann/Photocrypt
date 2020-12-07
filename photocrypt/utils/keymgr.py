@@ -30,6 +30,12 @@ def public_key_invalid():
     """
     raise ValueError("public key is invalid.")
 
+def public_key_used():
+    """
+    Raise error that public key is already in keystore.
+    """
+    raise ValueError("public key is already in keystore.")
+
 def name_length_invalid():
     """
     Raise error that name is invalid.
@@ -73,7 +79,7 @@ class KeyManager:
             for i, name, email, public_key
             in rows]
 
-    def write_key(self, name: str, email: str, public_key: bytes) -> bool:
+    def write_key(self, name: str, email: str, public_key: bytes) -> None:
         """
         Write key to keystore
 
@@ -81,9 +87,6 @@ class KeyManager:
                 name (str): required, name of key holder
                 email (str): not required, email of key holder
                 public_key (bytes): required, public_key of key holder
-
-            Returns:
-                result (bool): True if successful, False if failed.
         """
         if not self.conn:
             conn_not_established()
@@ -93,6 +96,9 @@ class KeyManager:
             name_length_invalid()
 
         if len(public_key) == 0 or not isinstance(public_key, bytes):
+            public_key_invalid()
+
+        if not public_key.startswith(b"-----BEGIN PUBLIC KEY-----"):
             public_key_invalid()
 
         values = (name, email, public_key)
@@ -106,8 +112,7 @@ class KeyManager:
             self.conn.commit()
 
         except IntegrityError:
-            return False
-        return True
+            public_key_used()
 
     def get_key(self, uid: int) -> bytes:
         """

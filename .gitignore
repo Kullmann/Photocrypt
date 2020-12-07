@@ -4,3 +4,5 @@ __pycache__/
 logging.txt
 venv/
 *.pem
+private_key_location.txt
+*.db
