@@ -9,6 +9,7 @@ import argparse
 from os.path import splitext
 from photocrypt import open_image, encrypt_image, decrypt_image
 from photocrypt.crypto.RSA import load_key
+from gui import startgui
 
 if __name__ == "__main__":
 
@@ -79,4 +80,5 @@ if __name__ == "__main__":
             decrypted.save(f'{image_path}_dec{image_ext}')
             print(f'image decrypted in {image_path}_dec{image_ext}')
     else:
-        pass
+        # gui
+        startgui()
