@@ -21,7 +21,7 @@ from the root directory, run following command:
 
 ```python3 bin [-h] [-i image path] [-k key path] [--encrypt] [--decrypt]```
 
-arguments:
+#### arguments:
 
   **-h**, **--help**            show this help message and exit
 
@@ -33,7 +33,7 @@ arguments:
 
   **--decrypt**                 decrypt given image using provided key
 
-example usage:
+#### example usage:
 
 ```python3 bin -i samples/tuatara.jpg -k public.pem --encrypt```
 
@@ -46,7 +46,7 @@ test scripts are available in tests/ directory.
 Run following command to run tests.
 ```python3 tests/<test name>.py```
 
-# Requirements
+## Requirements
 
 photocrypt package requires python3.6 or above.
 
