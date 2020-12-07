@@ -1,5 +1,5 @@
 """
-    author: Sean Kullman
+    author: Sean Kullmann
     date: December 7 2020
 
     provides RSA cipher and generate key feature
@@ -9,10 +9,12 @@ from Cryptodome.PublicKey import RSA
 from Cryptodome.Cipher import PKCS1_OAEP
 from photocrypt.core import Cipher, packer
 
+
 class RSACipher(Cipher):
     """
     Abstract RSA Cipher class
     """
+
     def __init__(self, key: bytes):
         self._key = RSA.import_key(key)
         self._rsa = PKCS1_OAEP.new(self._key)
@@ -56,6 +58,7 @@ class RSACipher(Cipher):
         """
         return self._rsa.decrypt(data), packer.pack(b'')
 
+
 def generate_key(key_size: int = 2048) -> (bytes, bytes):
     """
     generates RSA private and public key
@@ -70,6 +73,7 @@ def generate_key(key_size: int = 2048) -> (bytes, bytes):
     key = RSA.generate(key_size)
     return key.export_key(), key.publickey().export_key()
 
+
 def save_key(key: bytes, file_path: str) -> None:
     """
     saves single RSA key to given file path.
@@ -82,6 +86,7 @@ def save_key(key: bytes, file_path: str) -> None:
     with open(file_path, "wb") as file:
         file.write(key)
 
+
 def load_key(file_path: str) -> bytes:
     """
     loads single RSA key from given file path.
@@ -93,6 +98,7 @@ def load_key(file_path: str) -> bytes:
     with open(file_path, "rb") as file:
         key = file.read()
     return key
+
 
 def save_keypair(keypair: Tuple[bytes, bytes], file_paths: Tuple[str, str]) -> None:
     """
@@ -109,6 +115,7 @@ def save_keypair(keypair: Tuple[bytes, bytes], file_paths: Tuple[str, str]) -> N
     for key, file_path in zip(keypair, file_paths):
         save_key(key, file_path)
 
+
 def load_keypair(file_paths: Tuple[str, str]) -> Tuple[bytes, bytes]:
     """
     loads RSA keypair from given file path.
@@ -122,6 +129,7 @@ def load_keypair(file_paths: Tuple[str, str]) -> Tuple[bytes, bytes]:
         raise ValueError("The tuple has to be size of 2")
 
     return (load_key(file_paths[0]), load_key(file_paths[1]))
+
 
 def create(key: bytes):
     """

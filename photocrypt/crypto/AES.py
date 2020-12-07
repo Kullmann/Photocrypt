@@ -1,5 +1,5 @@
 """
-    author: Sean Kullman, Hosung Lee
+    author: Sean Kullmann, Hosung Lee
     date: December 7 2020
 
     AES class
@@ -10,21 +10,22 @@ from Cryptodome.Cipher import AES
 from Cryptodome.Cipher.AES import MODE_CCM, MODE_EAX, MODE_GCM, MODE_SIV, MODE_OCB
 from photocrypt.core import Cipher, packer
 
+
 class AESCipher(Cipher):
     """
     Abstract AES Cipher class
     """
+
     def __init__(self, mode, key: bytes):
         self._mode = mode
         self._key = key
-    
+
     @property
     def mode(self):
         """
         getter method of mode
         """
         return self._mode
-
 
     @property
     def key(self):
@@ -65,10 +66,12 @@ class AESCipher(Cipher):
         """
         ...
 
+
 class AESCipherModern(AESCipher):
     """
     AES Cipher class
     """
+
     def __init__(self, mode: int, key: bytes, extra: Optional[bytes] = None):
         extra = packer.unpack(extra) if extra else []
         _nonce = None
@@ -114,6 +117,7 @@ class AESCipherModern(AESCipher):
         tag = packer.unpack(extra)[0]
         return self.aes.decrypt_and_verify(data, tag), packer.pack(b'')
 
+
 # supported modes
 _supported_modes = {
     MODE_CCM: AESCipherModern,
@@ -123,6 +127,7 @@ _supported_modes = {
     MODE_OCB: AESCipherModern
 }
 
+
 def _get_aes(mode, key, extra: Optional[bytes] = None):
     """
     Factory of AES Ciphers
@@ -131,6 +136,7 @@ def _get_aes(mode, key, extra: Optional[bytes] = None):
         raise ValueError("The mode is not supported.")
 
     return _supported_modes[mode](mode, key, extra)
+
 
 def create(mode, key, extra: Optional[bytes] = None):
     """

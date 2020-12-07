@@ -17,6 +17,7 @@ from PyQt5.QtWidgets import (QApplication, QErrorMessage, QFileDialog,
 
 from styles import green_button_style, blue_button_style, disabled_button_style
 
+
 class MainWindow(QMainWindow):
     """
     Main window
@@ -29,24 +30,27 @@ class MainWindow(QMainWindow):
         self.resize(850, 600)
         self.workingdir = dirname(realpath(__file__))
 
-        self.title = QLabel("AES-128 Photo Encryption wrapped with RSA-2048", self)
+        self.title = QLabel(
+            "AES-128 Photo Encryption wrapped with RSA-2048", self)
         self.title.setWordWrap(True)
         self.title.setAlignment(Qt.AlignCenter)
         self.title.setStyleSheet("font: 30pt;")
         self.title.resize(700, 200)
-        self.title.move(120,30)
+        self.title.move(120, 30)
 
         icon_image = QPixmap()
         icon_image.load(join(self.workingdir, 'resource', 'icon.png'))
         self.icon = QLabel(self)
         self.icon.setPixmap(icon_image)
         self.icon.resize(icon_image.width(), icon_image.height())
-        self.icon.move(60,80)
+        self.icon.move(60, 80)
 
-        self.subtitle = QLabel("Create by Sean Kullmann and Hosung Lee", self)
+        self.subtitle = QLabel("Created by Hosung Lee and Sean Kullmann", self)
         self.subtitle.setStyleSheet("font: 10pt; color: #d3e1ed")
-        self.subtitle.resize(self.subtitle.sizeHint().width(), self.subtitle.sizeHint().height())
-        self.subtitle.move(self.width() // 2 - self.subtitle.sizeHint().width() // 2, 220)
+        self.subtitle.resize(self.subtitle.sizeHint().width(),
+                             self.subtitle.sizeHint().height())
+        self.subtitle.move(self.width() // 2 -
+                           self.subtitle.sizeHint().width() // 2, 220)
 
         self.rbutton = QPushButton("Generate RSA public and private key", self)
         self.rbutton.resize(self.rbutton.sizeHint().width(), self.rbutton.sizeHint().height())
@@ -107,7 +111,7 @@ class MainWindow(QMainWindow):
         self.imview = None
 
         self.show()
-    
+
     def generate_key(self):
         path_to_save = self.get_directory()
         if path_to_save == "":
@@ -115,7 +119,8 @@ class MainWindow(QMainWindow):
         private_file = join(path_to_save, "private.pem")
         public_file = join(path_to_save, "public.pem")
         if isfile(private_file) or isfile(public_file):
-            self.popup_message("Error", "private.pem or public.pem is already in the directory")
+            self.popup_message(
+                "Error", "private.pem or public.pem is already in the directory")
             return
         save_keypair(generate_key(), (private_file, public_file))
         self.popup_message("Success", "private.pem or public.pem saved in the directory")
@@ -128,7 +133,8 @@ class MainWindow(QMainWindow):
         dialog.exec_()
 
     def get_directory(self):
-        path = str(QFileDialog.getExistingDirectory(self, "select directory to download files"))
+        path = str(QFileDialog.getExistingDirectory(
+            self, "select directory to download files"))
         return path
 
     def get_open_file(self):
@@ -424,6 +430,7 @@ def startgui():
     window.show()
 
     app.exec_()
+
 
 if __name__ == "__main__":
     startgui()

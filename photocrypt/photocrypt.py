@@ -1,5 +1,5 @@
 """
-    author: Sean Kullman, Hosung Lee
+    author: Sean Kullmann, Hosung Lee
     date: December 7 2020
 
     Photocrypt module to encrypt/decrypt images
@@ -10,6 +10,7 @@ from photocrypt.crypto import AES
 from photocrypt.crypto import RSA
 from photocrypt.image import CryptoBitmap, Image, convert_image
 from photocrypt import packer
+
 
 def encrypt_image(image: Image, public_key: bytes, *, aes_mode=AES.MODE_EAX) -> Image:
     """
@@ -27,6 +28,7 @@ def encrypt_image(image: Image, public_key: bytes, *, aes_mode=AES.MODE_EAX) -> 
     image.data = cdata
     image.store_crypto_information(key_enc, *packer.unpack(extra))
     return image
+
 
 def decrypt_image(image: Image, private_key: bytes, *, aes_mode=AES.MODE_EAX) -> Image:
     """
