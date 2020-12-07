@@ -1,7 +1,7 @@
 '''
-@author: Hosung Lee, Sean Kullmann
-@date: December 7 2020
-@description: Main program
+author: Hosung Lee, Sean Kullmann
+date: December 7 2020
+Main program
 '''
 
 import sys
