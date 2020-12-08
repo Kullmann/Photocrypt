@@ -65,9 +65,9 @@ class ByteStream(io.BytesIO):
         """
         reads as specified in the list
         example:
-        bs = ByteStream(b'\x01\x00\x00\x00hello\x01\x00')
-        bs.read_multiple([int, (str, 5), short])
-        >>> [1, "hello", 1]
+        >>> bs = ByteStream(b'\x01\x00\x00\x00hello\x01\x00')
+        >>> bs.read_multiple([int, (str, 5), short])
+        [1, "hello", 1]
         """
 
         return [self.read_type(t) for t in types]
@@ -122,9 +122,9 @@ class ByteStream(io.BytesIO):
         """
         write as specified in the list
         example:
-        bs = ByteStream(b'\x01\x00\x00\x00hello\x01\x00')
-        bs.write_multiple([(int, 1), (str, "hello"), ('short', 1)])
-        >>> [1, "hello", 1]
+        >>> bs = ByteStream(b'\x01\x00\x00\x00hello\x01\x00')
+        >>> bs.write_multiple([(int, 1), (str, "hello"), ('short', 1)])
+        [1, "hello", 1]
         """
 
         for t in types:
