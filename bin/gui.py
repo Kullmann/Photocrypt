@@ -14,10 +14,10 @@ from PyQt5.QtWidgets import (QApplication, QErrorMessage, QFileDialog,
                              QFormLayout, QGroupBox, QHBoxLayout, QLineEdit,
                              QLabel, QMainWindow, QMessageBox, QPushButton,
                              QScrollArea, QVBoxLayout, QWidget)
+import outlook
 
 from styles import green_button_style, blue_button_style, disabled_button_style
-
-
+WORKING_DIRECTORY = dirname(realpath(__file__))
 class MainWindow(QMainWindow):
     """
     Main window
@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
         self.setStyleSheet("background-color:#315d90; font: 12pt Helvetica; color: #d3e1ed")
         self.setWindowTitle("Photo Crypto")
         self.resize(850, 600)
-        self.workingdir = dirname(realpath(__file__))
+        
 
         self.title = QLabel(
             "AES-128 Photo Encryption wrapped with RSA-2048", self)
@@ -39,7 +39,7 @@ class MainWindow(QMainWindow):
         self.title.move(120, 30)
 
         icon_image = QPixmap()
-        icon_image.load(join(self.workingdir, 'resource', 'icon.png'))
+        icon_image.load(join(WORKING_DIRECTORY, 'resource', 'icon.png'))
         self.icon = QLabel(self)
         self.icon.setPixmap(icon_image)
         self.icon.resize(icon_image.width(), icon_image.height())
@@ -90,17 +90,17 @@ class MainWindow(QMainWindow):
         self.private_found_indicator.resize(self.private_found_indicator.sizeHint().width(), self.private_found_indicator.sizeHint().height())
 
         self.current_recipient = QLabel("Recipient: Not selected. Use Contacts", self)
-        self.current_recipient.resize(self.current_recipient.sizeHint().width(), self.current_recipient.sizeHint().height())
+        self.current_recipient.resize(800, self.current_recipient.sizeHint().height())
         self.current_recipient.move(10, self.height() - self.current_recipient.height() - 10)
         self.private_found_indicator.move(10, self.height() - self.current_recipient.height() - self.private_found_indicator.height() - 10)
 
         self.keymgr = keymgr.create()
         self.recipient = None
         self.private_key_path = None
-        if not isfile(join(self.workingdir,'data','private_key_location.txt')):
-            with open(join(self.workingdir,'data','private_key_location.txt'), 'w') as file:
+        if not isfile(join(WORKING_DIRECTORY,'data','private_key_location.txt')):
+            with open(join(WORKING_DIRECTORY,'data','private_key_location.txt'), 'w') as file:
                 file.write('')
-        with open(join(self.workingdir,'data','private_key_location.txt'), 'r') as file:
+        with open(join(WORKING_DIRECTORY,'data','private_key_location.txt'), 'r') as file:
             location = file.read()
             if isfile(location):
                 self.private_key_path = location
@@ -166,7 +166,7 @@ class MainWindow(QMainWindow):
                 return False
         self.private_key_path = path
         self.set_private_key_found_indicator(True)
-        with open(join(self.workingdir, 'data', 'private_key_location.txt'), 'w') as file:
+        with open(join(WORKING_DIRECTORY, 'data', 'private_key_location.txt'), 'w') as file:
             file.write(self.private_key_path)
         return True
 
@@ -221,7 +221,8 @@ class MainWindow(QMainWindow):
             self.popup_message("Success", "Updated private key path.")
 
     def show_image(self, title, image):
-        self.imview = ImageViewer(title, image)
+        default_email = self.recipient['email'] if self.recipient else None
+        self.imview = ImageViewer(title, image, default_email=default_email)
         self.imview.show()
     
     def closeEvent(self, event):
@@ -388,11 +389,12 @@ class ImageViewer(QWidget):
     Contact window
     """
 
-    def __init__(self, title, image):
+    def __init__(self, title, image, default_email=None):
         super(ImageViewer,self).__init__()
         self.setStyleSheet("background-color:#315d90; font: 12pt Helvetica; color: white")
         self.setWindowTitle("Image Viewer - Photo Crypto")
         self.src_image = image
+        self.default_email = default_email
         self.pixmap = QPixmap()
         self.pixmap.loadFromData(self.src_image.to_bytes())
         self.image = QLabel(self)
@@ -411,6 +413,7 @@ class ImageViewer(QWidget):
         self.share_button.resize(self.share_button.sizeHint().width(), self.share_button.sizeHint().height())
         self.share_button.move(self.width() / 2 + 20, self.height() - self.share_button.sizeHint().height() - 20)
         self.share_button.setStyleSheet(blue_button_style(height=30))
+        self.share_button.clicked.connect(self.share_image)
 
     def save_image(self):
         dialog = QFileDialog()
@@ -421,7 +424,14 @@ class ImageViewer(QWidget):
             self.src_image.save(*path)
         else:
             return
-        print(path)
+        # print(path)
+
+    def share_image(self):
+        save_path = join(WORKING_DIRECTORY, "data", "shared.bmp")
+        self.src_image.save(save_path)
+        email = self.default_email if self.default_email else ""
+        subject = "Encrypted Image"
+        outlook.open_outlook_client(save_path, email, subject)
 
 def startgui():
     app = QApplication(sys.argv)

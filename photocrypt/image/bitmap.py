@@ -128,4 +128,11 @@ class Bitmap(Image):
         """
         Reads bitmap headers from bytestream.
         """
-        return BitmapFileHeader.read(data_stream), BitmapInfoHeader.read(data_stream)
+        file_header = BitmapFileHeader.read(data_stream)
+        info_header = BitmapInfoHeader.read(data_stream)
+        image_size = info_header.get_value(BI_IMAGE_SIZE)
+        if image_size == 0:
+            header_length = len(file_header.header) + len(info_header.header)
+            image_size = file_header.get_value(BF_FILE_SIZE) - header_length
+            info_header.set_value(BI_IMAGE_SIZE, image_size)
+        return file_header, info_header

@@ -54,13 +54,10 @@ class KeyManager:
         """
         Connect to keystore
         """
-        try:
-            self.conn = sqlite3.connect(self.dbpath)
-            cursor = self.conn.cursor()
-            cursor.execute(KEY_STORE_TABLE_SQL)
-            self.conn.commit()
-        except Error:
-            print(Error)
+        self.conn = sqlite3.connect(self.dbpath)
+        cursor = self.conn.cursor()
+        cursor.execute(KEY_STORE_TABLE_SQL)
+        self.conn.commit()
 
     def list_key(self) -> List[Dict[str, Union[str, bytes]]]:
         """
