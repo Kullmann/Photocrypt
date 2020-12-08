@@ -3,7 +3,8 @@ GUI Program
 """
 
 import sys
-from os.path import dirname, isfile, join, realpath
+from os.path import dirname, isfile, join, realpath, isdir
+from os import mkdir
 
 from photocrypt.crypto.RSA import generate_key, save_keypair, load_key
 from photocrypt.utils import keymgr
@@ -101,6 +102,9 @@ class MainWindow(QMainWindow):
         self.keymgr = keymgr.create()
         self.recipient = None
         self.private_key_path = None
+        if not isfile(join(WORKING_DIRECTORY, 'data')) and not isdir(join(WORKING_DIRECTORY, 'data')):
+            mkdir(join(WORKING_DIRECTORY,'data'))
+
         if not isfile(join(WORKING_DIRECTORY,'data','private_key_location.txt')):
             with open(join(WORKING_DIRECTORY,'data','private_key_location.txt'), 'w') as file:
                 file.write('')
