@@ -5,6 +5,10 @@ venv/
 *.egg-info
 dist/
 bin/data/
+build/
 *.pyc
 *.pem
 *.db
+*.sh
+*.bat
+*.spec
