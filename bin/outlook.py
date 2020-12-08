@@ -7,7 +7,7 @@ import webbrowser
 from os.path import dirname, join, realpath
 
 SUPPORTED_OS = ['Windows']
-PR_ATTACH_CONTENT_ID = "http://schemas.microsoft.com/mapi/proptag/0x3712001F"
+#PR_ATTACH_CONTENT_ID = "http://schemas.microsoft.com/mapi/proptag/0x3712001F"
 WORKING_DIRECTORY = dirname(realpath(__file__))
 
 if platform.system() in SUPPORTED_OS:
@@ -37,10 +37,11 @@ def open_outlook_client(img_path: str, email: str="", subject: str="") -> None:
 
     message.To, message.Subject = email, subject
 
-    image = message.Attachments.Add(img_abs)
+    message.Attachments.Add(img_abs)
+    #image = message.Attachments.Add(img_abs)
 
     with open(join(WORKING_DIRECTORY, "template.html")) as file:
         html = file.read()
 
-    image.PropertyAccessor.SetProperty(PR_ATTACH_CONTENT_ID, "encrypted_img")
+    #image.PropertyAccessor.SetProperty(PR_ATTACH_CONTENT_ID, "encrypted_img")
     message.HTMLBODY = html

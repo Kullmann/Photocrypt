@@ -15,7 +15,7 @@ def pack(*args: bytes) -> bytes:
     prepend four bytes representing number of the data to each data and merge data together.
 
     >>> pack(b'\x00\x01', b'\x11\x12\x13', b'\xf1')
-    
+
 
     """
     stream = ByteStream()

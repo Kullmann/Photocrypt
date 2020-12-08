@@ -5,7 +5,7 @@
     Local key manager to manage public keys
 """
 import sqlite3
-from sqlite3 import Error, IntegrityError
+from sqlite3 import IntegrityError
 from typing import List, Dict, Union
 
 KEY_STORE_TABLE_NAME = 'keystore'

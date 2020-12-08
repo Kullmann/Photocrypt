@@ -9,15 +9,19 @@ from photocrypt.crypto.RSA import generate_key, save_keypair, load_key
 from photocrypt.utils import keymgr
 from photocrypt import encrypt_image, decrypt_image, open_image
 from PyQt5.QtCore import Qt, QDir
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtWidgets import (QApplication, QErrorMessage, QFileDialog,
                              QFormLayout, QGroupBox, QHBoxLayout, QLineEdit,
                              QLabel, QMainWindow, QMessageBox, QPushButton,
                              QScrollArea, QVBoxLayout, QWidget)
 import outlook
+from Cryptodome.Random import get_random_bytes
+from random import randint
 
-from styles import green_button_style, blue_button_style, disabled_button_style
+from styles import green_button_style, blue_button_style, disabled_button_style, red_button_style
+
 WORKING_DIRECTORY = dirname(realpath(__file__))
+
 class MainWindow(QMainWindow):
     """
     Main window
@@ -27,7 +31,7 @@ class MainWindow(QMainWindow):
         super(MainWindow,self).__init__()
         self.setStyleSheet("background-color:#315d90; font: 12pt Helvetica; color: #d3e1ed")
         self.setWindowTitle("Photo Crypto")
-        self.resize(850, 600)
+        self.setFixedSize(850, 600)
         
 
         self.title = QLabel(
@@ -235,69 +239,114 @@ class Contacts(QWidget):
 
     def __init__(self, key_manager, setter):
         super(Contacts,self).__init__()
-        self.setStyleSheet("background-color:#315d90; font: 12pt Helvetica;")
+        self.setStyleSheet("background-color:#315d90; font: 12pt Helvetica; color: #d3e1ed")
         self.setWindowTitle("Contacts - Photo Crypto")
-        self.resize(500, 600)
+        self.setFixedSize(500, 600)
+        self.delete_button = QIcon(join(WORKING_DIRECTORY, 'resource','delete.png'))
         self.key_manager = key_manager
         self.setter = setter
         self.key_manager.connect()
-        self.form =QFormLayout()
+        self.contact_list_box = QWidget()
+        self.contact_list_box.setStyleSheet("background-color:#315d90; color: #ffffff")
+        self.contact_list = QVBoxLayout()
+        self.contact_list_box.setLayout(self.contact_list)
+        self.contact_list.setAlignment(Qt.AlignTop)
+        
         self.keys = {}
-        contact_list = QWidget()
-        contact_list.setStyleSheet("color: #ffffff")
+        self.set_callers = {}
+        self.del_callers = {}
         self.list_key()
-        contact_list.setLayout(self.form)
+
         scroll = QScrollArea()
-        scroll.setWidget(contact_list)
+        scroll.setWidget(self.contact_list_box)
         scroll.setWidgetResizable(True)
+        scroll.setStyleSheet("font: 11pt Helvetica;")
         add = QPushButton("Add Contact")
         add.setStyleSheet(blue_button_style(height=60))
-        vbox = QVBoxLayout(self)
-        vbox.addWidget(scroll)
-        vbox.addWidget(add)
-        #self.show()
+        layout = QVBoxLayout(self)
+
+        layout.addWidget(scroll)
+        layout.addWidget(add)
+
         self.add_contact = AddContact(self.add_key)
         add.clicked.connect(self.open_add_contact)
     
     def list_key(self):
         self.keys = {}
+        self.set_callers = {}
+        self.del_callers = {}
         names = []
         emails = []
         buttons = []
-        while self.form.count() >0:
-            self.form.removeRow(self.form.takeAt(0))
+        deletebs = []
+
         keys = self.key_manager.list_key()
+        for i in reversed(range(self.contact_list.count())):
+            layout = self.contact_list.itemAt(i).layout()
+            if layout:
+                for j in reversed(range(layout.count())):
+                    widget = layout.itemAt(j).widget()
+                    if widget:
+                        widget.deleteLater()
+                layout.deleteLater()
+
         i = 0
         hbox = QHBoxLayout()
-        hbox.setContentsMargins(0, 20, 0, 20)
-        hbox.addWidget(QLabel("Name"))
-        hbox.addWidget(QLabel("Email"))
-        hbox.addWidget(QLabel("Set Recipient"))
-        self.form.addRow(hbox)
+        name, email, action = QLabel("Name"), QLabel("Email"), QLabel("Actions")
+        name.setStyleSheet("font-weight: bold; font-size: 12pt")
+        email.setStyleSheet("font-weight: bold; font-size: 12pt")
+        action.setStyleSheet("font-weight: bold; font-size: 12pt")
+        hbox.setContentsMargins(0, 10, 0, 10)
+        hbox.addStretch(2)
+        hbox.addWidget(name)
+        hbox.addStretch(5)
+        hbox.addWidget(email)
+        hbox.addStretch(3)
+        hbox.addWidget(action)
+        hbox.addStretch(1)
+        self.contact_list.addLayout(hbox)
         for key in keys:
-            names.append(QLabel(key['name']))
-            emails.append(QLabel(key['email']))
-            button = QPushButton("Set Recipient")
+            self.keys[key['uid']] = key
+
+            name = QLabel(key['name'])
+            email = QLabel(key['email'])
+            names.append(name)
+            emails.append(email)
+
+            button = QPushButton("Choose")
             button.setStyleSheet(green_button_style())
-            self.keys[button] = key
             button.clicked.connect(self.set_key)
+            self.set_callers[button] = key['uid']
             buttons.append(button)
+
+            deleteb = QPushButton()
+            deleteb.setIcon(self.delete_button)
+            deleteb.clicked.connect(self.delete_key)
+            deleteb.setStyleSheet(red_button_style())
+            self.del_callers[deleteb] = key['uid']
+            deletebs.append(deleteb)
+
             hbox = QHBoxLayout()
             hbox.setContentsMargins(0, 20, 0, 20)
+            hbox.addStretch(2)
             hbox.addWidget(names[i])
+            hbox.addStretch(5)
             hbox.addWidget(emails[i])
+            hbox.addStretch(2)
             hbox.addWidget(buttons[i])
-            self.form.addRow(hbox)
+            hbox.addStretch(1)
+            hbox.addWidget(deletebs[i])
+            self.contact_list.addLayout(hbox)
             i += 1
-        return self.key_manager.list_key()
+        return keys
     
     def set_key(self):
-        for s in self.keys:
+        for s in self.set_callers:
             s.setDisabled(False)
             s.setStyleSheet(green_button_style())
         self.sender().setDisabled(True)
         self.sender().setStyleSheet(disabled_button_style())
-        self.setter(self.keys[self.sender()])
+        self.setter(self.keys[self.set_callers[self.sender()]])
     
     def add_key(self, name, email, keypath):
         try:
@@ -310,7 +359,11 @@ class Contacts(QWidget):
             self.popup_message("Error", str(err))
         except FileNotFoundError as err:
             self.popup_message("Error", str(err))
-
+        
+    def delete_key(self):
+        key = self.keys[self.del_callers[self.sender()]]
+        self.key_manager.delete_key(key['uid'])
+        self.list_key()
     def popup_message(self, title, text):
         dialog = QMessageBox()
         dialog.setWindowTitle(title)
@@ -333,7 +386,7 @@ class AddContact(QWidget):
         super(AddContact,self).__init__()
         self.setStyleSheet("background-color:#315d90; font: 12pt Helvetica; color: white")
         self.setWindowTitle("Add Contact - Photo Crypto")
-        self.resize(500, 310)
+        self.setFixedSize(500, 310)
         self.callback = callback
         self.path = ""
         form = QFormLayout(self)
@@ -403,15 +456,15 @@ class ImageViewer(QWidget):
         self.image.move(25, 50)
         self.label = QLabel(title, self)
         self.label.resize(self.label.sizeHint().width(), self.label.sizeHint().height())
-        self.label.move(self.width() / 2 - self.label.width() / 2,10)
+        self.label.move(self.width() // 2 - self.label.width() // 2,10)
         self.save_button = QPushButton("save", self)
         self.share_button = QPushButton("share", self)
         self.save_button.resize(self.share_button.sizeHint().width(), self.share_button.sizeHint().height())
-        self.save_button.move(self.width() / 2 - self.share_button.sizeHint().width() - 20, self.height() - self.share_button.sizeHint().height() - 20)
+        self.save_button.move(self.width() // 2 - self.share_button.sizeHint().width() - 20, self.height() - self.share_button.sizeHint().height() - 20)
         self.save_button.setStyleSheet(blue_button_style(height=30))
         self.save_button.clicked.connect(self.save_image)
         self.share_button.resize(self.share_button.sizeHint().width(), self.share_button.sizeHint().height())
-        self.share_button.move(self.width() / 2 + 20, self.height() - self.share_button.sizeHint().height() - 20)
+        self.share_button.move(self.width() // 2 + 20, self.height() - self.share_button.sizeHint().height() - 20)
         self.share_button.setStyleSheet(blue_button_style(height=30))
         self.share_button.clicked.connect(self.share_image)
 
@@ -437,6 +490,7 @@ def startgui():
     app = QApplication(sys.argv)
     window = MainWindow()
     #window = ImageViewer("test", open_image("test.png"))
+    # window = Contacts(keymgr.create(), lambda x: x)
     window.show()
 
     app.exec_()

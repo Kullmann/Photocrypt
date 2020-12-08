@@ -6,3 +6,4 @@ venv/
 *.pem
 private_key_location.txt
 *.db
+bin/data/shared.bmp

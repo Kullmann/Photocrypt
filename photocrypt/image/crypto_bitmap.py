@@ -8,6 +8,11 @@
 from photocrypt.core import ImageHeader, ByteStream, packer
 from .bitmap import Bitmap, BitmapFileHeader, BF_FILE_SIZE, BF_OFFSET, BF_REVERSED_1, BI_IMAGE_SIZE
 
+SIZE_INT = 4
+CRYPTO_HEADER_INDICATOR = 4362
+CH_LENGTH = 0
+CH_DATA = 1
+
 class CryptoHeader(ImageHeader):
     """
     Class to represent bitmap file header.
@@ -63,8 +68,8 @@ class CryptoBitmap(Bitmap):
         Store
         """
         data = packer.pack(*data)
-        self.crypto_header.set_value(1, data)
-        self.crypto_header.set_value(0, len(data))
+        self.crypto_header.set_value(CH_DATA, data)
+        self.crypto_header.set_value(CH_LENGTH, len(data))
         self.crypto_header.set_length(len(data))
 
     @classmethod
@@ -77,15 +82,15 @@ class CryptoBitmap(Bitmap):
         offset = file_header.get_value(BF_OFFSET)
 
         # using reversed_1 as indicator of cryptobitmap
-        if file_header.get_value(BF_REVERSED_1) == 4362:
+        if file_header.get_value(BF_REVERSED_1) == CRYPTO_HEADER_INDICATOR:
             crypto_header = cls.read_crypto_header(data_stream)
-            file_header.set_value(BF_FILE_SIZE, size - crypto_header.get_length() - 4)
-            file_header.set_value(BF_OFFSET, offset - crypto_header.get_length() - 4)
+            file_header.set_value(BF_FILE_SIZE, size - crypto_header.get_length() - SIZE_INT)
+            file_header.set_value(BF_OFFSET, offset - crypto_header.get_length() - SIZE_INT)
 
         else:
             # if not a cryptobitmap, convert image to cryptobitmap
             crypto_header = create_crypto_header()
-            file_header.set_value(BF_REVERSED_1, 4362)
+            file_header.set_value(BF_REVERSED_1, CRYPTO_HEADER_INDICATOR)
             offset += crypto_header.get_length()
 
         data_stream.seek(offset)
@@ -105,7 +110,7 @@ class CryptoBitmap(Bitmap):
         size = self.file_header.get_value(BF_FILE_SIZE)
         offset = self.file_header.get_value(BF_OFFSET)
         cdata_length = self.crypto_header.get_length()
-        new_size, new_offset = size + cdata_length + 4, offset + cdata_length + 4
+        new_size, new_offset = size + cdata_length + SIZE_INT, offset + cdata_length + SIZE_INT
 
         self.headers[0] = self.file_header = BitmapFileHeader(
             [self.file_header.header[0]] +

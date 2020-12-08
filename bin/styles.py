@@ -42,6 +42,28 @@ def blue_button_style(width = None, height = None):
     """
     return style
 
+def red_button_style(width = None, height = None):
+    """
+    Blue button style
+    """
+    width_style = f"width: {width}px;" if width else ""
+    height_style = f"height: {height}px;" if height else ""
+    style = f"""
+    QPushButton {{
+        background-color: #d9534f;
+        color: #ffffff;
+        border-radius: 10px;
+        {width_style}
+        {height_style}
+    }}
+    QPushButton:hover {{ background-color: #c9302c }}
+    QPushButton:pressed {{
+        background-color: #ac2925;
+        border: 3px solid #761c19;
+    }}
+    """
+    return style
+
 def disabled_button_style(width = None, height = None):
     """
     Blue button style
