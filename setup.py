@@ -9,7 +9,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="photocrypt",
-    version="0.0.2",
+    version="0.0.5",
     author="Hosung Lee, Sean Kullmann",
     author_email="runway3237@gmail.com, seankullmann@gmail.com",
     description="A package that can encrypt and decrypt images",
@@ -33,11 +33,10 @@ setuptools.setup(
     keywords='cryptology, cryptograpy, image',
     install_requires=['Pillow','pycryptodome','pycryptodomex'],
     extras_require={
-        'gui':['PyQt5', 'PyQt5-sip']
+        'gui':['PyQt5', 'PyQt5-sip', 'pypiwin32']
     },
     project_urls={
         'Bug Reports': 'https://github.com/Kullmann/RSAPhotoCryptography/issues',
         'Source': 'https://github.com/Kullmann/RSAPhotoCryptography',
     }
-
 )

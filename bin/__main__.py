@@ -6,9 +6,9 @@ Main program
 
 import sys
 import argparse
-from os.path import splitext
+from os.path import splitext, join, isfile
 from photocrypt import open_image, encrypt_image, decrypt_image
-from photocrypt.crypto.RSA import load_key
+from photocrypt.crypto.RSA import load_key, generate_key, save_keypair
 from gui import startgui
 
 if __name__ == "__main__":
@@ -42,11 +42,36 @@ if __name__ == "__main__":
         const=True,
         help='decrypt given image using provided key'
         )
+    
+    parser.add_argument(
+        '--genkey',
+        action='store_const',
+        const=True,
+        help='generates rsa key to directory specified in -k'
+        )
 
     use_cui = False
     encryption = None
 
     args = parser.parse_args()
+
+    if args.genkey:
+        path = args.k if args.k else '.'
+        pub_path = join(path, 'public.pem')
+        pri_path = join(path, 'private.pem')
+        if isfile(pub_path) or isfile(pri_path):
+            if isfile(pub_path):
+                print(f"public key already exists at {pub_path}")
+            if isfile(pri_path):
+                print(f"private key already exists at {pri_path}")
+            ans = input(f"do you want to overwrite? (Y/n) ")
+            if ans not in ['Y', 'y', 'yes']:
+                print("operation canceled.")
+                sys.exit()
+        save_keypair(generate_key(), (pub_path, pri_path))
+        print(f'keys generated at {pub_path} {pri_path}')
+        sys.exit()
+
     if args.encrypt and args.decrypt:
         print('can only perform encryption or decryption at once.')
         sys.exit()
