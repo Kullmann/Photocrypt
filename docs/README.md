@@ -1,1 +1,0 @@
-{% include "git+https://github.com/Kullmann/RSAPhotoCryptography.git/README.md" %}

@@ -6,7 +6,7 @@ import platform
 import webbrowser
 from os.path import dirname, join, realpath
 
-SUPPORTED_OS = ['Windows']
+SUPPORTED_OS = []# 'Windows'
 #PR_ATTACH_CONTENT_ID = "http://schemas.microsoft.com/mapi/proptag/0x3712001F"
 WORKING_DIRECTORY = dirname(realpath(__file__))
 
