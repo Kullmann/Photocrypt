@@ -24,7 +24,7 @@ from the root directory, run following command:
 
 ```python3 bin```
 
-### Run CUI Application
+### Run CLI Application
 
 from the root directory, run following command:
 
