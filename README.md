@@ -5,7 +5,7 @@ The purpose of this project is to encrypt and decrypt photos using the AES algor
 
 * Documentation: [https://photocrypt.readthedocs.io/](https://photocrypt.readthedocs.io/)
 * Github: [https://github.com/cookiecutter/cookiecutter](https://github.com/cookiecutter/cookiecutter)
-* Pypi [https://pypi.org/project/photocrypt/](https://pypi.org/project/photocrypt/)
+* PyPI [https://pypi.org/project/photocrypt/](https://pypi.org/project/photocrypt/)
 
 ## Installation
 
