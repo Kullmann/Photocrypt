@@ -1,6 +1,9 @@
 # Photocrypt
 The purpose of this project is to encrypt and decrypt photos using the AES algorithm with a one-time use 128-bit AES session key wrapped with 2048-bit RSA encryption. [Project Synopsis](project_synopsis.md)
 
+## Documentation
+[https://photocrypt.readthedocs.io/](https://photocrypt.readthedocs.io/)
+
 ## Installation
 
 ### Package itself
