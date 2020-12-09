@@ -15,8 +15,8 @@ def pack(*args: bytes) -> bytes:
     prepend four bytes representing number of the data to each data and merge data together.
 
     >>> pack(b'\x00\x01', b'\x11\x12\x13', b'\xf1')
-
-
+    
+    b'\x02\x00\x00\x00\x00\x01\x03\x00\x00\x00\x11\x12\x13\x01\x00\x00\x00\xf1'
     """
     stream = ByteStream()
     for data in args:
@@ -27,6 +27,10 @@ def pack(*args: bytes) -> bytes:
 def unpack(packed_data: bytes) -> List[bytes]:
     """
     parse data separated by 4 bytes header of each data. Header represents the length of the data.
+
+    >>> unpack(b'\x02\x00\x00\x00\x00\x01\x03\x00\x00\x00\x11\x12\x13\x01\x00\x00\x00\xf1')
+
+
     """
     stream = ByteStream(packed_data)
     result = []
@@ -35,4 +39,5 @@ def unpack(packed_data: bytes) -> List[bytes]:
     return result
 
 if __name__ == '__main__':
-    
+    print(pack(b'\x00\x01', b'\x11\x12\x13', b'\xf1'))
+    print(unpack(b'\x02\x00\x00\x00\x00\x01\x03\x00\x00\x00\x11\x12\x13\x01\x00\x00\x00\xf1'))

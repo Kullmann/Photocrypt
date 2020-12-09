@@ -128,9 +128,18 @@ _supported_modes = {
 }
 
 
-def _get_aes(mode, key, extra: Optional[bytes] = None):
+def _get_aes(mode, key, extra: Optional[bytes] = None) -> AESCipher:
     """
     Factory of AES Ciphers
+
+        Parameters:
+            mode (constant): mode of AES
+            key (bytes): key for AES cipher
+            extra (bytes): packed bytes for extra information
+                (packed using photocrypt.packer).
+        
+        Returns:
+            AES cipher (AESCipher): AESCipher object.
     """
     if not mode in _supported_modes:
         raise ValueError("The mode is not supported.")
@@ -138,13 +147,17 @@ def _get_aes(mode, key, extra: Optional[bytes] = None):
     return _supported_modes[mode](mode, key, extra)
 
 
-def create(mode, key, extra: Optional[bytes] = None):
+def create(mode, key, extra: Optional[bytes] = None) -> AESCipher:
     """
     Creates AES Cipher
 
         Parameters:
             mode (constant): mode of AES
             key (bytes): key for cipher
-            extra (bytes): packed bytes for extra (packed using photocrypt.packer).
+            extra (bytes): packed bytes for extra information
+                (packed using photocrypt.packer).
+        
+        Returns:
+            AES cipher (AESCipher): AESCipher object.
     """
     return _get_aes(mode, key, extra)
