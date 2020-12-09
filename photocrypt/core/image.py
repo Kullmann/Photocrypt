@@ -11,11 +11,13 @@ import PIL.Image
 from .bstream import ByteStream
 from .bdata import ByteData
 
+
 class ImageHeader(ByteData):
     """
     base class to represent Image Header
     """
     protocol = []
+
     def __init__(self, header: list):
         self.protocol = self.__class__.protocol
         self.header = header
@@ -37,7 +39,7 @@ class ImageHeader(ByteData):
             raise IndexError("header index out of bounds")
         return self.header[i]
 
-    def set_value(self, i:int, value) -> None:
+    def set_value(self, i: int, value) -> None:
         """
         sets header value
 
@@ -150,6 +152,7 @@ class Image(ByteData):
         with open(file_path, 'wb') as file:
             file.write(self.to_bytes())
 
+
 def open_image_as(file_path: str, as_format: Image) -> Image:
     """
     loads image from path and converts it to specified image format
@@ -158,15 +161,18 @@ def open_image_as(file_path: str, as_format: Image) -> Image:
         return as_format.open(file_path)
     except ValueError:
         data_stream = ByteStream()
-        PIL.Image.open(file_path).save(data_stream, format=as_format.image_format)
+        PIL.Image.open(file_path).save(
+            data_stream, format=as_format.image_format)
         data_stream.seek(0)
         return as_format.read(data_stream)
+
 
 def convert_image(src: Image, to_format: Image) -> Image:
     """
     Converts an image from one type to another.
     """
     return to_format.from_bytes(src.to_bytes())
+
 
 def _open_image(supported_formats: list, file_path: str) -> Image:
     """

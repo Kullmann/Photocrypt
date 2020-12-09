@@ -7,6 +7,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional, List
 
+
 class Cipher(ABC):
     """
     Abstract cipher class
