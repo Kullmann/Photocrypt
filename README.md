@@ -1,5 +1,5 @@
 # RSAPhotoCryptography
-The purpose of this project is to encrypt and decrypt photos using the AES algorithm with the one-time AES session key wrapped with RSA.
+The purpose of this project is to encrypt and decrypt photos using the AES algorithm with the one-time 128-bit AES session key wrapped with 2048-bit RSA encryption.
 
 ## Installation
 
@@ -13,7 +13,7 @@ run following command:
 first, install photocrypt gui dependency using following command:
 ```pip3 install photocrypt[gui]```
 
-Then clone repository:
+then clone repository:
 ```git clone https://github.com/Kullmann/RSAPhotoCryptography.git```
 
 ## Running
@@ -24,7 +24,7 @@ from the root directory, run following command:
 
 ```python3 bin```
 
-### Run CUI Application
+### Run CLI Application
 
 from the root directory, run following command:
 
@@ -52,7 +52,7 @@ from the root directory, run following command:
 
 test scripts are available in tests/ directory.
 
-Run following command to run tests.
+run following command to run tests.
 ```python3 tests/<test name>.py```
 
 ## Requirements
