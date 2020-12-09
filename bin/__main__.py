@@ -68,7 +68,7 @@ if __name__ == "__main__":
             if ans not in ['Y', 'y', 'yes']:
                 print("operation canceled.")
                 sys.exit()
-        save_keypair(generate_key(), (pub_path, pri_path))
+        save_keypair(generate_key(), (pri_path, pub_path))
         print(f'keys generated at {pub_path} {pri_path}')
         sys.exit()
 
