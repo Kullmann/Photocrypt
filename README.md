@@ -1,5 +1,5 @@
 # RSAPhotoCryptography
-The purpose of this project is to encrypt and decrypt photos using the AES algorithm wrapped with RSA.
+The purpose of this project is to encrypt and decrypt photos using the AES algorithm with the one-time AES session key wrapped with RSA.
 
 ## Installation
 First clone repository:
