@@ -21,13 +21,13 @@ pyinstaller --onefile src/app.py
 
 Then the executable file will be generated inside bin/dist directory.
 
-If you are in windows, you can run application by
+If you are in windows, you can run application by running the following in bin directory
 
 ```bash
 dist/app.exe
 ```
 
-If you are in linux distros, you can run application by
+If you are in linux distros, you can run application by running the following in bin directory
 ```bash
 dist/app
 ```
