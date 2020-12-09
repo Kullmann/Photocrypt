@@ -9,8 +9,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="photocrypt",
-    version="0.0.1",
-    author="Hosung Lee, Sean Kullman",
+    version="0.0.2",
+    author="Hosung Lee, Sean Kullmann",
     author_email="runway3237@gmail.com, seankullmann@gmail.com",
     description="A package that can encrypt and decrypt images",
     long_description=long_description,
