@@ -7,6 +7,7 @@
 """
 
 from abc import abstractmethod
+from typing import Union, List
 import PIL.Image
 from .bstream import ByteStream
 from .bdata import ByteData
@@ -23,28 +24,36 @@ class ImageHeader(ByteData):
         self.header = header
 
     @classmethod
-    def get_protocol(cls) -> list:
+    def get_protocol(cls) -> List[type]:
         """
         get protocol of the header
+
+            Return:
+                protocol (list of types): protocol of current header.
         """
         return cls.protocol
 
-    def get_value(self, i: int):
+    def get_value(self, i: int) -> Union[bytes, 'short', int, str]:
         """
         get header list
 
-        :i index of header
+            Parameters:
+                i (int): index of header
+            
+            Returns: 
+                value (any): value in ith index of header.
         """
         if i < 0 or i > len(self.header):
             raise IndexError("header index out of bounds")
         return self.header[i]
 
-    def set_value(self, i: int, value) -> None:
+    def set_value(self, i: int, value: Union[bytes, 'short', int, str]) -> None:
         """
         sets header value
 
-        :i index of header
-        :value value to set
+            Parameters:
+                i (int): index of header
+                value (any) value to set in ith index of header.
         """
         if i < 0 or i > len(self.header):
             raise IndexError("header index out of bounds")
@@ -54,6 +63,12 @@ class ImageHeader(ByteData):
     def read(cls, data_stream: ByteStream) -> 'ImageHeader':
         """
         Reads ByteStream to generate a header.
+
+            Parameters:
+                data_stream (ByteStream): bytestream to read
+            
+            Return:
+                image header (ImageHeader): image header object
         """
 
         return cls(data_stream.read_multiple(cls.get_protocol()))
@@ -61,6 +76,9 @@ class ImageHeader(ByteData):
     def write(self, data_stream: ByteStream) -> None:
         """
         Write header to a ByteStream
+
+            Parameters:
+                data_stream (ByteStream): bytestream to write
         """
         data_stream.write_multiple([
             (x[0], y) if isinstance(x, tuple) else (x, y)
@@ -84,16 +102,25 @@ class Image(ByteData):
 
     @classmethod
     @abstractmethod
-    def test_format(cls, data: bytes):
+    def test_format(cls, data: bytes) -> Union[str, None]:
         """
-        returns name of format if format is valid, None otherwise.
+        returns name of format if data represents current format, None otherwise.
+
+            Parameters:
+                data (bytes): data that represents image.
+            Returns:
+                name of format (str) if data represents current format
+                None otherwise.
         """
         ...
 
     @property
-    def headers(self) -> list:
+    def headers(self) -> List[ImageHeader]:
         """
         getter method of headers
+
+            Returns:
+                headers (list of image headers)
         """
         return self._headers
 
@@ -101,6 +128,9 @@ class Image(ByteData):
     def data(self) -> bytes:
         """
         getter method of data
+
+            Returns:
+                image data (bytes): data part of the image
         """
         return self._data
 
@@ -108,6 +138,9 @@ class Image(ByteData):
     def data(self, data: bytes) -> None:
         """
         setter method of data
+
+            Parameters:
+                data (bytes): image data in bytes
         """
         if len(data) < len(self._data):
             raise ValueError(f"data is smaller than {len(self._data)}")

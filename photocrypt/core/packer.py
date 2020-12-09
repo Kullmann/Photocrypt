@@ -34,4 +34,5 @@ def unpack(packed_data: bytes) -> List[bytes]:
         result.append(stream.read(stream.read_int()))
     return result
 
-pack(b'\x00\x01', b'\x11\x12\x13', b'\xf1')
+if __name__ == '__main__':
+    
