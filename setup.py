@@ -9,13 +9,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="photocrypt",
-    version="0.0.5",
+    version="0.0.6",
     author="Hosung Lee, Sean Kullmann",
     author_email="runway3237@gmail.com, seankullmann@gmail.com",
     description="A package that can encrypt and decrypt images",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Kullmann/RSAPhotoCryptography",
+    url="https://github.com/Kullmann/Photocrypt",
     packages=setuptools.find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -36,7 +36,7 @@ setuptools.setup(
         'gui':['PyQt5', 'PyQt5-sip', 'pypiwin32']
     },
     project_urls={
-        'Bug Reports': 'https://github.com/Kullmann/RSAPhotoCryptography/issues',
-        'Source': 'https://github.com/Kullmann/RSAPhotoCryptography',
+        'Bug Reports': 'https://github.com/Kullmann/Photocrypt/issues',
+        'Source': 'https://github.com/Kullmann/Photocrypt',
     }
 )
