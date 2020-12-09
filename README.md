@@ -1,4 +1,4 @@
-# RSAPhotoCryptography
+# Photocrypt
 The purpose of this project is to encrypt and decrypt photos using the AES algorithm with the one-time 128-bit AES session key wrapped with 2048-bit RSA encryption. [Project Synopsis](project_synopsis.md)
 
 ## Installation
