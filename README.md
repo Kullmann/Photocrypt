@@ -1,9 +1,11 @@
 # RSAPhotoCryptography
-The purpose of this project is to encrypt and decrypt photos using the RSA algorithm.
+The purpose of this project is to encrypt and decrypt photos using the AES algorithm wrapped with RSA.
 
 ## Installation
+First clone repository:
+```git clone https://github.com/Kullmann/RSAPhotoCryptography.git```
 
-To install photocrypt package simply run following command on root directory:
+Next, to install photocrypt package simply run following command on root directory:
 
 ```pip3 install .```
 
@@ -13,13 +15,13 @@ To install photocrypt package simply run following command on root directory:
 
 from the root directory, run following command:
 
-```python3 bin```
+```python3 bin/src/app.py```
 
 ### Run CUI Application
 
 from the root directory, run following command:
 
-```python3 bin [-h] [-i image path] [-k key path] [--encrypt] [--decrypt]```
+```python3 bin/src/app.py [-h] [-i image path] [-k key path] [--encrypt] [--decrypt]```
 
 #### arguments:
 
@@ -35,9 +37,9 @@ from the root directory, run following command:
 
 #### example usage:
 
-```python3 bin -i samples/tuatara.jpg -k public.pem --encrypt```
+```python3 bin/src/app.py -i samples/tuatara.jpg -k public.pem --encrypt```
 
-```python3 bin -i samples/tuatara_enc -k private.pem --decrypt```
+```python3 bin/src/app.py -i samples/tuatara_enc -k private.pem --decrypt```
 
 ## Testing
 
