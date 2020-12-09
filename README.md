@@ -2,12 +2,19 @@
 The purpose of this project is to encrypt and decrypt photos using the AES algorithm with the one-time AES session key wrapped with RSA.
 
 ## Installation
-First clone repository:
+
+### Package itself
+
+run following command:
+```pip3 install photocrypt```
+
+### With GUI Application
+
+first, install photocrypt gui dependency using following command:
+```pip3 install photocrypt[gui]```
+
+Then clone repository:
 ```git clone https://github.com/Kullmann/RSAPhotoCryptography.git```
-
-Next, to install photocrypt package simply run following command on root directory:
-
-```pip3 install .```
 
 ## Running
 
@@ -15,13 +22,13 @@ Next, to install photocrypt package simply run following command on root directo
 
 from the root directory, run following command:
 
-```python3 bin/src/app.py```
+```python3 bin```
 
 ### Run CUI Application
 
 from the root directory, run following command:
 
-```python3 bin/src/app.py [-h] [-i image path] [-k key path] [--encrypt] [--decrypt]```
+```python3 bin [-h] [-i image path] [-k key path] [--encrypt] [--decrypt]```
 
 #### arguments:
 
@@ -37,9 +44,9 @@ from the root directory, run following command:
 
 #### example usage:
 
-```python3 bin/src/app.py -i samples/tuatara.jpg -k public.pem --encrypt```
+```python3 bin -i samples/tuatara.jpg -k public.pem --encrypt```
 
-```python3 bin/src/app.py -i samples/tuatara_enc -k private.pem --decrypt```
+```python3 bin -i samples/tuatara_enc -k private.pem --decrypt```
 
 ## Testing
 
