@@ -11,4 +11,6 @@ Welcome to Photocrypt's documentation
    :caption: Contents:
 
    introduction
+   quickstart
+   api
    license
