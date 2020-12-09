@@ -4,8 +4,7 @@ User documentation
 .. toctree::
     :hidden:
     :maxdepth: 2
-    
-    photocrypt
+
     core/core
     crypto/crypto
     image/image
