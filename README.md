@@ -13,7 +13,7 @@ run following command:
 first, install photocrypt gui dependency using following command:
 ```pip3 install photocrypt[gui]```
 
-Then clone repository:
+then clone repository:
 ```git clone https://github.com/Kullmann/RSAPhotoCryptography.git```
 
 ## Running
@@ -52,7 +52,7 @@ from the root directory, run following command:
 
 test scripts are available in tests/ directory.
 
-Run following command to run tests.
+run following command to run tests.
 ```python3 tests/<test name>.py```
 
 ## Requirements
