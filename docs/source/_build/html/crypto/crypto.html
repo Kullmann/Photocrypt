@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>photocrypt.crypto &mdash; Photocrypt 0.0.5 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Photocrypt 0.0.5 documentation" href="../index.html"/>
+        <link rel="up" title="User documentation" href="../api.html"/>
+        <link rel="next" title="photocrypt.image" href="../image/image.html"/>
+        <link rel="prev" title="photocrypt.core" href="../core/core.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Photocrypt
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Photocrypt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">User documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core/core.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">photocrypt.core</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">photocrypt.crypto</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#photocrypt-crypto-aes"><code class="xref py py-mod docutils literal notranslate"><span class="pre">photocrypt.crypto.AES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#photocrypt-crypto-rsa"><code class="xref py py-mod docutils literal notranslate"><span class="pre">photocrypt.crypto.RSA</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../image/image.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">photocrypt.image</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils/utils.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">photocrypt.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Photocrypt</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">User documentation</a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">photocrypt.crypto</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/crypto/crypto.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="photocrypt-crypto">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">photocrypt.crypto</span></code><a class="headerlink" href="#photocrypt-crypto" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">photocrypt.crypto</span></code> module
+contains ciphers and operations related to cryptography.</p>
+</div>
+<div class="section" id="photocrypt-crypto-aes">
+<h2><a class="reference internal" href="#module-photocrypt.crypto.AES" title="photocrypt.crypto.AES"><code class="xref py py-mod docutils literal notranslate"><span class="pre">photocrypt.crypto.AES</span></code></a><a class="headerlink" href="#photocrypt-crypto-aes" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-photocrypt.crypto.AES"></span><p>author: Sean Kullmann, Hosung Lee
+date: December 7 2020</p>
+<p>AES class</p>
+<dl class="py class">
+<dt id="photocrypt.crypto.AES.AESCipher">
+<em class="property">class </em><code class="sig-prename descclassname">photocrypt.crypto.AES.</code><code class="sig-name descname">AESCipher</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em>, <em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">bytes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#photocrypt.crypto.AES.AESCipher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract AES Cipher class</p>
+<dl class="py method">
+<dt id="photocrypt.crypto.AES.AESCipher.decrypt">
+<em class="property">abstract </em><code class="sig-name descname">decrypt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">bytes</span></em>, <em class="sig-param"><span class="n">extra</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bytes<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>bytes<span class="p">]</span><a class="headerlink" href="#photocrypt.crypto.AES.AESCipher.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>decrypts bytes</p>
+<blockquote>
+<div><dl>
+<dt>Parameters:</dt><dd><p>data (bytes): data to decrypt using AES
+extra (Optional[bytes]): packed bytes for extra</p>
+<blockquote>
+<div><p>(packed using photocrypt.packer).</p>
+</div></blockquote>
+</dd>
+<dt>Return:</dt><dd><p>decrypted (bytes): encrypted data
+extra (Optional[bytes]): packed bytes for extra</p>
+<blockquote>
+<div><p>(packed using photocrypt.packer).</p>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="photocrypt.crypto.AES.AESCipher.encrypt">
+<em class="property">abstract </em><code class="sig-name descname">encrypt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">bytes</span></em>, <em class="sig-param"><span class="n">extra</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bytes<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>bytes<span class="p">]</span><a class="headerlink" href="#photocrypt.crypto.AES.AESCipher.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>encrypts bytes</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Parameters:</dt><dd><p>data (bytes): data to encrypt using AES
+extra (Optional[bytes]): optional data required for encryption</p>
+</dd>
+<dt>Return:</dt><dd><p>encrypted (bytes): encrypted data
+extra (bytes): extra data produced from decryption</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="photocrypt.crypto.AES.AESCipher.key">
+<em class="property">property </em><code class="sig-name descname">key</code><a class="headerlink" href="#photocrypt.crypto.AES.AESCipher.key" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter method of key</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="photocrypt.crypto.AES.AESCipher.mode">
+<em class="property">property </em><code class="sig-name descname">mode</code><a class="headerlink" href="#photocrypt.crypto.AES.AESCipher.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter method of mode</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="photocrypt.crypto.AES.AESCipherModern">
+<em class="property">class </em><code class="sig-prename descclassname">photocrypt.crypto.AES.</code><code class="sig-name descname">AESCipherModern</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">bytes</span></em>, <em class="sig-param"><span class="n">extra</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bytes<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#photocrypt.crypto.AES.AESCipherModern" title="Permalink to this definition">¶</a></dt>
+<dd><p>AES Cipher class</p>
+<dl class="py method">
+<dt id="photocrypt.crypto.AES.AESCipherModern.decrypt">
+<code class="sig-name descname">decrypt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">bytes</span></em>, <em class="sig-param"><span class="n">extra</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bytes<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>bytes<span class="p">]</span><a class="headerlink" href="#photocrypt.crypto.AES.AESCipherModern.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>decrypts bytes</p>
+<blockquote>
+<div><dl>
+<dt>Parameters:</dt><dd><p>data (bytes): data to decrypt using AES
+extra (Optional[bytes]): packed bytes for extra</p>
+<blockquote>
+<div><p>(packed using photocrypt.packer).</p>
+</div></blockquote>
+</dd>
+<dt>Return:</dt><dd><p>decrypted (bytes): encrypted data
+extra: packed bytes for extra</p>
+<blockquote>
+<div><p>(packed using photocrypt.packer).</p>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="photocrypt.crypto.AES.AESCipherModern.encrypt">
+<code class="sig-name descname">encrypt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">bytes</span></em>, <em class="sig-param"><span class="n">extra</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bytes<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>bytes<span class="p">]</span><a class="headerlink" href="#photocrypt.crypto.AES.AESCipherModern.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>encrypts bytes</p>
+<blockquote>
+<div><dl>
+<dt>Parameters:</dt><dd><p>data (bytes): data to encrypt using AES
+extra (Optional[bytes]): packed bytes for extra</p>
+<blockquote>
+<div><p>(packed using photocrypt.packer).</p>
+</div></blockquote>
+</dd>
+<dt>Return:</dt><dd><p>encrypted (bytes): encrypted data
+extra (bytes): packed bytes of nonce and tag</p>
+<blockquote>
+<div><p>(packed using photocrypt.packer).</p>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="photocrypt.crypto.AES.create">
+<code class="sig-prename descclassname">photocrypt.crypto.AES.</code><code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em>, <em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">extra</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bytes<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#photocrypt.crypto.AES.AESCipher" title="photocrypt.crypto.AES.AESCipher">photocrypt.crypto.AES.AESCipher</a><a class="headerlink" href="#photocrypt.crypto.AES.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates AES Cipher</p>
+<blockquote>
+<div><dl>
+<dt>Parameters:</dt><dd><p>mode (constant): mode of AES
+key (bytes): key for cipher
+extra (bytes): packed bytes for extra information</p>
+<blockquote>
+<div><p>(packed using photocrypt.packer).</p>
+</div></blockquote>
+</dd>
+<dt>Returns:</dt><dd><p>AES cipher (AESCipher): AESCipher object.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="photocrypt-crypto-rsa">
+<h2><a class="reference internal" href="#module-photocrypt.crypto.RSA" title="photocrypt.crypto.RSA"><code class="xref py py-mod docutils literal notranslate"><span class="pre">photocrypt.crypto.RSA</span></code></a><a class="headerlink" href="#photocrypt-crypto-rsa" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-photocrypt.crypto.RSA"></span><p>author: Sean Kullmann
+date: December 7 2020</p>
+<p>provides RSA cipher and generate key feature</p>
+<dl class="py class">
+<dt id="photocrypt.crypto.RSA.RSACipher">
+<em class="property">class </em><code class="sig-prename descclassname">photocrypt.crypto.RSA.</code><code class="sig-name descname">RSACipher</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">bytes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#photocrypt.crypto.RSA.RSACipher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract RSA Cipher class</p>
+<dl class="py method">
+<dt id="photocrypt.crypto.RSA.RSACipher.decrypt">
+<code class="sig-name descname">decrypt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">bytes</span></em>, <em class="sig-param"><span class="n">extra</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bytes<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>bytes<span class="p">]</span><a class="headerlink" href="#photocrypt.crypto.RSA.RSACipher.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>decrypts bytes</p>
+<blockquote>
+<div><dl>
+<dt>Parameters:</dt><dd><p>data (bytes): data to decrypt using AES
+extra (Optional[bytes]): packed bytes for extra</p>
+<blockquote>
+<div><p>(packed using photocrypt.pack).</p>
+</div></blockquote>
+</dd>
+<dt>Return:</dt><dd><p>decrypted (bytes): encrypted data
+extra (Optional[bytes]): packed bytes for extra</p>
+<blockquote>
+<div><p>(packed using photocrypt.pack).</p>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="photocrypt.crypto.RSA.RSACipher.encrypt">
+<code class="sig-name descname">encrypt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">bytes</span></em>, <em class="sig-param"><span class="n">extra</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bytes<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>bytes<span class="p">]</span><a class="headerlink" href="#photocrypt.crypto.RSA.RSACipher.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>encrypts bytes</p>
+<blockquote>
+<div><dl>
+<dt>Parameters:</dt><dd><p>data (bytes): data to encrypt using AES
+extra (Optional[bytes]): packed bytes for extra</p>
+<blockquote>
+<div><p>(packed using photocrypt.pack).</p>
+</div></blockquote>
+</dd>
+<dt>Return:</dt><dd><p>encrypted (bytes): encrypted data
+extra (Optional[bytes]): packed bytes for extra</p>
+<blockquote>
+<div><p>(packed using photocrypt.pack).</p>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="photocrypt.crypto.RSA.RSACipher.key">
+<em class="property">property </em><code class="sig-name descname">key</code><a class="headerlink" href="#photocrypt.crypto.RSA.RSACipher.key" title="Permalink to this definition">¶</a></dt>
+<dd><p>getter method of key</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="photocrypt.crypto.RSA.create">
+<code class="sig-prename descclassname">photocrypt.crypto.RSA.</code><code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">bytes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#photocrypt.crypto.RSA.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates RSA Cipher</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Parameters:</dt><dd><p>key (bytes): key for cipher</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt id="photocrypt.crypto.RSA.generate_key">
+<code class="sig-prename descclassname">photocrypt.crypto.RSA.</code><code class="sig-name descname">generate_key</code><span class="sig-paren">(</span><em class="sig-param">key_size: int = 2048) -&gt; (&lt;class 'bytes'&gt;</em>, <em class="sig-param">&lt;class 'bytes'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#photocrypt.crypto.RSA.generate_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>generates RSA private and public key</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Parameters:</dt><dd><p>key_size (int): key size of rsa</p>
+</dd>
+<dt>Return:</dt><dd><p>private key (bytes): rsa private key
+public key (bytes): rsa public key</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt id="photocrypt.crypto.RSA.load_key">
+<code class="sig-prename descclassname">photocrypt.crypto.RSA.</code><code class="sig-name descname">load_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bytes<a class="headerlink" href="#photocrypt.crypto.RSA.load_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>loads single RSA key from given file path.
+Use load_keypair() to load both private and public key at once.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><p>file_path (str): file path to load key.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="photocrypt.crypto.RSA.load_keypair">
+<code class="sig-prename descclassname">photocrypt.crypto.RSA.</code><code class="sig-name descname">load_keypair</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_paths</span><span class="p">:</span> <span class="n">Tuple<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>bytes<span class="p">, </span>bytes<span class="p">]</span><a class="headerlink" href="#photocrypt.crypto.RSA.load_keypair" title="Permalink to this definition">¶</a></dt>
+<dd><p>loads RSA keypair from given file path.
+Use load_key() to load a single key.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Parameters:</dt><dd><p>keypair (tuple of bytes): byte representations of keys in tuple (private, public)
+file_path (tuple of str): file paths in pair to save keyspairs.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt id="photocrypt.crypto.RSA.save_key">
+<code class="sig-prename descclassname">photocrypt.crypto.RSA.</code><code class="sig-name descname">save_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">bytes</span></em>, <em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#photocrypt.crypto.RSA.save_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>saves single RSA key to given file path.
+Use save_keypair() to save both private and public key at once.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Parameters:</dt><dd><p>key (bytes): byte representation of key (private/public)
+file_path (str): file path to save key.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt id="photocrypt.crypto.RSA.save_keypair">
+<code class="sig-prename descclassname">photocrypt.crypto.RSA.</code><code class="sig-name descname">save_keypair</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keypair</span><span class="p">:</span> <span class="n">Tuple<span class="p">[</span>bytes<span class="p">, </span>bytes<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">file_paths</span><span class="p">:</span> <span class="n">Tuple<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#photocrypt.crypto.RSA.save_keypair" title="Permalink to this definition">¶</a></dt>
+<dd><p>saves RSA keypair to given file path.
+Use save_key() to save a single key.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Parameters:</dt><dd><p>keypair (tuple of bytes): byte representations of keys in tuple (private, public)
+file_path (tuple of str): file paths in pair to save keyspairs.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../image/image.html" class="btn btn-neutral float-right" title="photocrypt.image" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../core/core.html" class="btn btn-neutral" title="photocrypt.core" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Hosung Lee, Sean Kullmann.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> and ❤️  using a custom <a href="https://github.com/LinxiFan/Sphinx-theme">theme</a> based on <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.5',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
