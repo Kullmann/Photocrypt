@@ -12,3 +12,5 @@ build/
 *.sh
 *.bat
 *.spec
+_build/
+_build_html/

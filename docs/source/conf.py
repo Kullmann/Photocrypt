@@ -11,8 +11,8 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-# import sys
-# sys.path.insert(0, os.path.abspath('../../photocrypt/'))
+import sys
+sys.path.insert(0, os.path.abspath('../../photocrypt/'))
 
 
 # -- Project information -----------------------------------------------------
@@ -22,7 +22,7 @@ copyright = '2020, Hosung Lee, Sean Kullmann'
 author = 'Hosung Lee, Sean Kullmann'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.5'
+release = '0.0.8'
 
 
 # -- General configuration ---------------------------------------------------

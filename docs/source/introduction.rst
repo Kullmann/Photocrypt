@@ -5,6 +5,10 @@ What is photocrypt?
 -------------------
 Photocrypt is a python package provides tools to encrypt and decrypt various image formats.
 
+* Documentation: [https://photocrypt.readthedocs.io/](https://photocrypt.readthedocs.io/)
+* Github: [https://github.com/Kullmann/Photocrypt](https://github.com/Kullmann/Photocrypt)
+* PyPI [https://pypi.org/project/photocrypt/](https://pypi.org/project/photocrypt/)
+
 Requirements
 ------------
 Photocrypt requires Python 3.6 version or newer.

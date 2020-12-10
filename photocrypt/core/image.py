@@ -28,8 +28,8 @@ class ImageHeader(ByteData):
         """
         get protocol of the header
 
-            Return:
-                protocol (list of types): protocol of current header.
+        :Return: protocol of current header.
+        :rtype: List[type]
         """
         return cls.protocol
 
