@@ -284,13 +284,18 @@ extra (bytes): packed bytes of nonce and tag</p>
 
 <dl class="py function">
 <dt id="photocrypt.crypto.AES.create">
-<code class="sig-prename descclassname">photocrypt.crypto.AES.</code><code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em>, <em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">extra</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bytes<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#photocrypt.crypto.AES.create" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">photocrypt.crypto.AES.</code><code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em>, <em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">extra</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bytes<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#photocrypt.crypto.AES.AESCipher" title="photocrypt.crypto.AES.AESCipher">photocrypt.crypto.AES.AESCipher</a><a class="headerlink" href="#photocrypt.crypto.AES.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates AES Cipher</p>
 <blockquote>
-<div><dl class="simple">
+<div><dl>
 <dt>Parameters:</dt><dd><p>mode (constant): mode of AES
 key (bytes): key for cipher
-extra (bytes): packed bytes for extra (packed using photocrypt.packer).</p>
+extra (bytes): packed bytes for extra information</p>
+<blockquote>
+<div><p>(packed using photocrypt.packer).</p>
+</div></blockquote>
+</dd>
+<dt>Returns:</dt><dd><p>AES cipher (AESCipher): AESCipher object.</p>
 </dd>
 </dl>
 </div></blockquote>
